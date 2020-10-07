@@ -1,6 +1,10 @@
+import 'package:collegedeals/Dashboard_Pages/Favourite.dart';
 import 'package:flutter/material.dart';
 
 import 'Dashboard_Pages/Main_Dashboard.dart';
+import 'Dashboard_Pages/Profile.dart';
+import 'Dashboard_Pages/Settings.dart';
+import 'Dashboard_Pages/blog.dart';
 import 'SVGicons/SVGiconclass.dart';
 
 
@@ -15,9 +19,12 @@ class _homepageState extends State<home_page> {
 
   final tabs= [
     Dash_Mian(),
-    Dash_Mian(),
-    Dash_Mian(),
-    Dash_Mian(),
+    Favourite_Screen(),
+    Blog_View(),
+    Setting_Dashboard(),
+    Profile_Screen(),
+
+
   ];
 
   final List<int> colorlist=[0xff7ED321,0xFF546E7A,
@@ -71,7 +78,7 @@ class _homepageState extends State<home_page> {
 
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
-              icon: Icon(MyFlutterAppIcon.file,size: 20,),
+              icon: Icon(Icons.format_list_numbered,size: 25,),
               title:Text("Clients"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",
@@ -83,6 +90,16 @@ class _homepageState extends State<home_page> {
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
               icon: Icon(MyFlutterAppIcon.settings,size: 20,),
+              title: Text("Items"
+                ,style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontSize: 12,
+                    color: Color(0xFFBBBBBB)
+                ),),
+            ),
+            BottomNavigationBarItem(
+              // icon: Image.asset('assets/gab.png'),
+              icon: Icon(Icons.supervised_user_circle,size: 25,),
               title: Text("Items"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",

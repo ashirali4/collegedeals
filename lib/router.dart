@@ -3,11 +3,14 @@ import 'package:collegedeals/Intro/Getting_Started.dart';
 import 'package:collegedeals/SignupSignin/Login.dart';
 import 'package:collegedeals/SignupSignin/Signupnext.dart';
 import 'package:collegedeals/SignupSignin/resetpassword.dart';
+import 'package:collegedeals/SingleOfferView/CodeView.dart';
 import 'package:flutter/material.dart';
 
 import 'Intro/welcome_screen.dart';
 import 'SignupSignin/Signup.dart';
 import 'SignupSignin/forget_pass.dart';
+import 'SingleOfferView/SingleService.dart';
+import 'SingleOfferView/Viewblog.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
 
@@ -28,7 +31,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'resetpassword':
       return MaterialPageRoute(builder: (context) => ResetPassword());
     case 'dashboardad':
-      return MaterialPageRoute(builder: (context) => home_page());
-
+       return MaterialPageRoute(builder: (context) => home_page());
+    case 'viewcode':
+      return MaterialPageRoute(builder: (context) => CodeView());
+    case 'viewsingle':
+      return MaterialPageRoute(builder: (context) => SingleServiceView());
+    case 'viewblog':
+      return MaterialPageRoute(builder: (context) => SingleBlog());
   }
 }

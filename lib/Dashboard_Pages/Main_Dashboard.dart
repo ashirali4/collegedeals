@@ -222,10 +222,24 @@ class _Dash_MianState extends State<Dash_Mian> {
                   ),
                   textAlign: TextAlign.start,),
               ),
+              InkWell(child:
               list(),
+              onTap: (){
+                Navigator.pushNamed(context, "viewsingle");
+              },),
+              InkWell(child:
               list(),
+                onTap: (){
+                  Navigator.pushNamed(context, "viewsingle");
+                },),InkWell(child:
               list(),
+                onTap: (){
+                  Navigator.pushNamed(context, "viewsingle");
+                },),InkWell(child:
               list(),
+                onTap: (){
+                  Navigator.pushNamed(context, "viewsingle");
+                },),
             ],
           ),
         ),
@@ -269,13 +283,18 @@ class _Dash_MianState extends State<Dash_Mian> {
                           height: 75,
                           width: 75,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius:38.0,
-                              backgroundImage:
-                              AssetImage('assets/mc.png'),
-                              backgroundColor: Colors.transparent,
-                            ),
+                            padding: const EdgeInsets.all(1.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius:28.0,
+                                  backgroundImage:
+                                  AssetImage('assets/mc.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ],
+                            )
                           ),
                         ),
                       ),

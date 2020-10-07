@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'Dashboard.dart';
 import 'Intro/Getting_Started.dart';
+import 'Intro/Getting_Started.dart';
+import 'SingleOfferView/SingleService.dart';
 
 void main() {
   runApp(MyApp());
