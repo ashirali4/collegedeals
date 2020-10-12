@@ -1,5 +1,10 @@
+import 'package:collegedeals/APIModels/Login_API_Model_Response.dart';
+import 'package:collegedeals/APIcalls.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordfield/passwordfield.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+import '../Dashboard.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,11 +13,13 @@ class Login extends StatefulWidget {
 bool _passwordVisible = false;
 class _signup1State extends State<Login> {
   bool radio=true;
+  String name;
   @override
   void initState() {
     _passwordVisible = false;
   }
-
+  MyApi loginapi=new MyApi();
+  LoginApiModel logindetails=new LoginApiModel();
   @override
   Widget build(BuildContext context) {
 
@@ -227,8 +234,15 @@ class _signup1State extends State<Login> {
                                   textColor: Colors.white,
                                   disabledColor: Colors.grey,
                                   // padding: EdgeInsets.all(10.0),
-                                  onPressed:(){
-                                    Navigator.pushNamed(context, "dashboardad");
+                                  onPressed:() async {
+                                    name="";
+                                    logindetails=await loginapi.signin("email", "password");
+                                    _onLoading(context, logindetails.status);
+
+
+
+
+                                    //_onLoading(context,name);
                                   },
                                   child: Text('Login',
                                     style: TextStyle(
@@ -253,5 +267,62 @@ class _signup1State extends State<Login> {
         ),
       ),
     );
+  }
+
+  void _onLoading(BuildContext context,String response) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new CircularProgressIndicator(),
+              new Container(
+                child: response==null ? Text("Loading") : Text(response),
+              )
+            ],
+          ),
+        );
+      },
+    );
+    if(response=="succes"){
+      new Future.delayed(new Duration(seconds: 3), () {
+        Navigator.pop(context); //pop dialog
+        Navigator.pushNamed(context, "dashboardad");
+      });
+    }
+    else{
+      Navigator.pop(context); //pop dialog
+
+      Alert(
+        context: context,
+        type: AlertType.warning,
+        title: "RFLUTTER ALERT",
+        desc: "Flutter is more awesome with RFlutter Alert.",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "FLAT",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color.fromRGBO(0, 179, 134, 1.0),
+          ),
+          DialogButton(
+            child: Text(
+              "GRADIENT",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () => Navigator.pop(context),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(116, 116, 191, 1.0),
+              Color.fromRGBO(52, 138, 199, 1.0)
+            ]),
+          )
+        ],
+      ).show();
+    }
   }
 }

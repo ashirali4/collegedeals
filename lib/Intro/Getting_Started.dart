@@ -1,9 +1,14 @@
+import 'package:collegedeals/APIcalls.dart';
+import 'package:collegedeals/SignupSignin/Login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class get_started extends StatelessWidget {
+  MyApi myapi=new MyApi();
+
   @override
   Widget build(BuildContext context) {
+    myapi.signin("email", "password");
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -94,5 +99,8 @@ class get_started extends StatelessWidget {
     );
 
   }
+
+
+
 }
 
