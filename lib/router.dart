@@ -13,7 +13,7 @@ import 'SingleOfferView/SingleService.dart';
 import 'SingleOfferView/Viewblog.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-
+var signuparg=settings.arguments;
 
   switch (settings.name) {
 
@@ -23,7 +23,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'SignUp':
       return MaterialPageRoute(builder: (context) => signup1());
     case 'Signupnext':
-      return MaterialPageRoute(builder: (context) => Signupnext());
+      return MaterialPageRoute(builder: (context) => Signupnext(signuparg));
     case 'login':
       return MaterialPageRoute(builder: (context) => Login());
     case 'forgetpass':

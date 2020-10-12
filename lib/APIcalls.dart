@@ -41,8 +41,8 @@ class MyApi {
     Map<String,dynamic> map=new Map<String,dynamic>();
     map={
     "login_submit" : 1,
-    "email_address" : "arslan.awan163@gmail.com",
-    "password" : "arslan"
+    "email_address" : email,
+    "password" : password
   };
     FormData formData = FormData.fromMap(map);
     Response<Map> response = await dio.post(apiurl, data: formData);

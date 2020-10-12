@@ -7,7 +7,8 @@ class signup1 extends StatefulWidget {
 }
 bool _passwordVisible = false;
 class _signup1State extends State<signup1> {
-
+ TextEditingController email=new TextEditingController();
+ TextEditingController password=new TextEditingController();
   @override
   void initState() {
     _passwordVisible = false;
@@ -66,6 +67,7 @@ class _signup1State extends State<signup1> {
                         child: Column(
                           children:[
                             new TextField(
+                              controller: email,
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20,
@@ -94,6 +96,7 @@ class _signup1State extends State<signup1> {
 
                             ),
                             new TextFormField(
+                              controller: password,
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20,
@@ -152,7 +155,8 @@ class _signup1State extends State<signup1> {
                                   disabledColor: Colors.grey,
                                   // padding: EdgeInsets.all(10.0),
                                   onPressed:(){
-                                    Navigator.pushNamed(context, "Signupnext");
+                                    email_password info=new email_password(email.text,password.text);
+                                    Navigator.pushNamed(context, "Signupnext",arguments: info);
                                   },
                                   child: Text('Next',
                                     style: TextStyle(
@@ -176,4 +180,9 @@ class _signup1State extends State<signup1> {
       ),
     );
   }
+}
+class email_password{
+  String email;
+  String password;
+  email_password(this.email,this.password);
 }

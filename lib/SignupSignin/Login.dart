@@ -14,6 +14,9 @@ bool _passwordVisible = false;
 class _signup1State extends State<Login> {
   bool radio=true;
   String name;
+  TextEditingController email=new TextEditingController();
+  TextEditingController password=new TextEditingController();
+
   @override
   void initState() {
     _passwordVisible = false;
@@ -74,6 +77,7 @@ class _signup1State extends State<Login> {
                         child: Column(
                           children:[
                             new TextField(
+                              controller: email,
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20,
@@ -102,6 +106,7 @@ class _signup1State extends State<Login> {
 
                             ),
                             new TextFormField(
+                              controller: password,
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20,
@@ -236,7 +241,7 @@ class _signup1State extends State<Login> {
                                   // padding: EdgeInsets.all(10.0),
                                   onPressed:() async {
                                     name="";
-                                    logindetails=await loginapi.signin("email", "password");
+                                    logindetails=await loginapi.signin(email.text, password.text);
                                     _onLoading(context, logindetails.status);
 
 
@@ -275,19 +280,26 @@ class _signup1State extends State<Login> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          child: new Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              new CircularProgressIndicator(),
-              new Container(
-                child: response==null ? Text("Loading") : Text(response),
-              )
-            ],
+          child: Container(
+            height: 80,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: new Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  new CircularProgressIndicator(),
+                  SizedBox(width: 20,),
+                  new Container(
+                    child:  Text("Please Wait") ,
+                  )
+                ],
+              ),
+            ),
           ),
         );
       },
     );
-    if(response=="succes"){
+    if(response=="Success"){
       new Future.delayed(new Duration(seconds: 3), () {
         Navigator.pop(context); //pop dialog
         Navigator.pushNamed(context, "dashboardad");
@@ -296,32 +308,12 @@ class _signup1State extends State<Login> {
     else{
       Navigator.pop(context); //pop dialog
 
+
       Alert(
         context: context,
-        type: AlertType.warning,
-        title: "RFLUTTER ALERT",
-        desc: "Flutter is more awesome with RFlutter Alert.",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "FLAT",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () => Navigator.pop(context),
-            color: Color.fromRGBO(0, 179, 134, 1.0),
-          ),
-          DialogButton(
-            child: Text(
-              "GRADIENT",
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            onPressed: () => Navigator.pop(context),
-            gradient: LinearGradient(colors: [
-              Color.fromRGBO(116, 116, 191, 1.0),
-              Color.fromRGBO(52, 138, 199, 1.0)
-            ]),
-          )
-        ],
+        type: AlertType.error,
+        title: "Error",
+        desc: "Your email/password is incorrect!",
       ).show();
     }
   }

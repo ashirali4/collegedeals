@@ -1,12 +1,27 @@
+import 'dart:io';
+import 'dart:async';
+
+
+import 'package:collegedeals/SignupSignin/Signup.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:passwordfield/passwordfield.dart';
 
 class Signupnext extends StatefulWidget {
+  email_password info;
   @override
   _signup1State createState() => _signup1State();
+  Signupnext(this.info);
 }
 bool _passwordVisible = false;
 class _signup1State extends State<Signupnext> {
+  final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+  String email;
+  String mobile;
+  String insitute;
+  String city;
+  String state;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -53,147 +68,212 @@ class _signup1State extends State<Signupnext> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:[
-                            new TextField(
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: new InputDecoration(
-                                labelText: 'Email',
-                                labelStyle: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 15,
-                                  color: Color(0xff36845B),
-                                ),
-                                hintText: 'abc@gmail.com',
-                                hintStyle: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 15
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xff36845B),),
-                                ),
-                              ),
+                           Form(
+                             key: _formKey
+                             ,child:Column(
+                               children: [
+                                 new TextFormField(
+                                   validator: (String value) {
+                                     if(value.isEmpty){
+                                       return 'Email is required';
+                                     }
 
-                            ),
 
-                            new TextField(
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.phone,
-                              decoration: new InputDecoration(
-                                labelText: 'Mobile Number',
-                                labelStyle: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 15,
-                                  color: Color(0xff36845B),
-                                ),
-                                hintText: '+91XXXXXXXXXX',
-                                hintStyle: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 15
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xff36845B),),
-                                ),
-                              ),
 
-                            ),
-                            new TextField(
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: new InputDecoration(
-                                labelText: 'Institutional Full Name',
-                                labelStyle: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 15,
-                                  color: Color(0xff36845B),
-                                ),
-                                hintText: 'Name here',
-                                hintStyle: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 15
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xff36845B),),
-                                ),
-                              ),
+                                     // validator has to return something :)
+                                     return null;
 
-                            ),
-                            new TextField(
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: new InputDecoration(
-                                labelText: 'City/Town',
-                                labelStyle: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 15,
-                                  color: Color(0xff36845B),
-                                ),
-                                hintText: 'e.g : Dehli',
-                                hintStyle: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 15
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xff36845B),),
-                                ),
-                              ),
+                                   },
+                                   onSaved: (String value){
+                                     email=value;
+                                   },
+                                   style: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 20,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                   keyboardType: TextInputType.name,
+                                   decoration: new InputDecoration(
+                                     labelText: 'Full Name',
+                                     labelStyle: TextStyle(
+                                       fontFamily: "Poppins",
+                                       fontSize: 15,
+                                       color: Color(0xff36845B),
+                                     ),
+                                     hintText: 'abc@gmail.com',
+                                     hintStyle: TextStyle(
+                                         fontFamily: "Poppins",
+                                         fontSize: 15
+                                     ),
+                                     enabledBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
+                                     ),
+                                     focusedBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xff36845B),),
+                                     ),
+                                   ),
 
-                            ),
-                            new TextField(
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: new InputDecoration(
-                                labelText: 'State',
-                                labelStyle: TextStyle(
-                                  fontFamily: "Poppins",
-                                  fontSize: 15,
-                                  color: Color(0xff36845B),
-                                ),
-                                hintText: 'e.g: Punjab',
-                                hintStyle: TextStyle(
-                                    fontFamily: "Poppins",
-                                    fontSize: 15
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide( color: Color(0xff36845B),),
-                                ),
-                              ),
+                                 ),
+                                 new TextFormField(
+                                   validator: (String value) {
+                                     if(value.isEmpty){
+                                       return 'Mobile is required';
+                                     }
 
-                            ),
+                                     return null;
+
+                                   },
+                                   onSaved: (String value){
+                                     mobile=value;
+                                   },
+                                   style: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 20,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                   keyboardType: TextInputType.phone,
+                                   decoration: new InputDecoration(
+                                     labelText: 'Mobile Number',
+                                     labelStyle: TextStyle(
+                                       fontFamily: "Poppins",
+                                       fontSize: 15,
+                                       color: Color(0xff36845B),
+                                     ),
+                                     hintText: '+91XXXXXXXXXX',
+                                     hintStyle: TextStyle(
+                                         fontFamily: "Poppins",
+                                         fontSize: 15
+                                     ),
+                                     enabledBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
+                                     ),
+                                     focusedBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xff36845B),),
+                                     ),
+                                   ),
+
+                                 ),
+                                 new TextFormField(
+                                   validator: (String value) {
+                                     if(value.isEmpty){
+                                       return 'Institute is required';
+                                     }
+
+                                     return null;
+
+                                   },
+                                   onSaved: (String value){
+                                     insitute=value;
+                                   },
+                                   style: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 20,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                   keyboardType: TextInputType.emailAddress,
+                                   decoration: new InputDecoration(
+                                     labelText: 'Institutional Full Name',
+                                     labelStyle: TextStyle(
+                                       fontFamily: "Poppins",
+                                       fontSize: 15,
+                                       color: Color(0xff36845B),
+                                     ),
+                                     hintText: 'Name here',
+                                     hintStyle: TextStyle(
+                                         fontFamily: "Poppins",
+                                         fontSize: 15
+                                     ),
+                                     enabledBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
+                                     ),
+                                     focusedBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xff36845B),),
+                                     ),
+                                   ),
+
+                                 ),
+                                 new TextFormField(
+                                   validator: (String value) {
+                                     if(value.isEmpty){
+                                       return 'City is required';
+                                     }
+
+                                     return null;
+
+                                   },
+                                   onSaved: (String value){
+                                     city=value;
+                                   },
+                                   style: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 20,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                   keyboardType: TextInputType.emailAddress,
+                                   decoration: new InputDecoration(
+                                     labelText: 'City/Town',
+                                     labelStyle: TextStyle(
+                                       fontFamily: "Poppins",
+                                       fontSize: 15,
+                                       color: Color(0xff36845B),
+                                     ),
+                                     hintText: 'e.g : Dehli',
+                                     hintStyle: TextStyle(
+                                         fontFamily: "Poppins",
+                                         fontSize: 15
+                                     ),
+                                     enabledBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
+                                     ),
+                                     focusedBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xff36845B),),
+                                     ),
+                                   ),
+
+                                 ),
+                                 new TextFormField(
+                                   validator: (String value) {
+                                     if(value.isEmpty){
+                                       return 'State is required';
+                                     }
+
+                                     return null;
+
+                                   },
+                                   onSaved: (String value){
+                                     state=value;
+                                   },
+                                   style: TextStyle(
+                                     fontFamily: "Poppins",
+                                     fontSize: 20,
+                                     fontWeight: FontWeight.bold,
+                                   ),
+                                   keyboardType: TextInputType.emailAddress,
+                                   decoration: new InputDecoration(
+                                     labelText: 'State',
+                                     labelStyle: TextStyle(
+                                       fontFamily: "Poppins",
+                                       fontSize: 15,
+                                       color: Color(0xff36845B),
+                                     ),
+                                     hintText: 'e.g: Punjab',
+                                     hintStyle: TextStyle(
+                                         fontFamily: "Poppins",
+                                         fontSize: 15
+                                     ),
+                                     enabledBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
+                                     ),
+                                     focusedBorder: UnderlineInputBorder(
+                                       borderSide: BorderSide( color: Color(0xff36845B),),
+                                     ),
+                                   ),
+
+                                 ),
+                               ],
+                             )
+                             ,
+                           ),
 
 
 
@@ -223,7 +303,20 @@ class _signup1State extends State<Signupnext> {
                                       textColor: Colors.white,
                                       disabledColor: Colors.grey,
                                       // padding: EdgeInsets.all(10.0),
-                                      onPressed:(){},
+                                      onPressed:() async {
+                                        File _image;
+
+                                        final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+                                        setState(() {
+                                          if (pickedFile != null) {
+                                            _image = File(pickedFile.path);
+                                          } else {
+                                            print('No image selected.');
+                                          }
+                                        });
+
+                                      },
                                       child: Text('Choose File',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -258,7 +351,17 @@ class _signup1State extends State<Signupnext> {
                                   textColor: Colors.white,
                                   disabledColor: Colors.grey,
                                   // padding: EdgeInsets.all(10.0),
-                                  onPressed:(){},
+                                  onPressed:(){
+                                    if(!_formKey.currentState.validate()) {
+                                      return;
+                                    }
+                                    _formKey.currentState.save();
+                                    print(email);
+                                    print(mobile);
+                                    print(insitute);
+                                    print(city);
+                                    print(state);
+                                  },
                                   child: Text('Complete SignUp',
                                     style: TextStyle(
                                       fontSize: 12,
