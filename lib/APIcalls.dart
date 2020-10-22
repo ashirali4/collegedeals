@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
+import 'APIModels/Home_DEALS_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
 
 //Future<String> funct() async {
@@ -45,7 +47,7 @@ class MyApi {
     "password" : password
   };
     FormData formData = FormData.fromMap(map);
-    Response<Map> response = await dio.post(apiurl, data: formData);
+    var response = await dio.post(apiurl, data: formData);
     if(response.statusCode==200){
       LoginApiModel model=loginApiModelFromJson(response.toString());
       return model;
@@ -56,7 +58,40 @@ class MyApi {
     }
   }
 
+  // API FOR THE FETCH HOME DEALS
 
+  Future<FetchHomeDeals> fetch_home_deals() async {
+    String url= apiurl+'?fetch_home_deals=1/';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      FetchHomeDeals list=fetchHomeDealsFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      FetchHomeDeals list=fetchHomeDealsFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+  // API FOR THE blogposts
+
+  Future<FetchBlogPost> topblogposts() async {
+    String url= apiurl+'?fetch_popular_blog_posts=1/';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      FetchBlogPost list=fetchBlogPostFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      FetchBlogPost list=fetchBlogPostFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
 }
 
 

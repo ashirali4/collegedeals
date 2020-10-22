@@ -1,4 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:collegedeals/APIModels/Home_DEALS_model.dart';
+import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,12 @@ class Dash_Mian extends StatefulWidget {
 }
 
 class _Dash_MianState extends State<Dash_Mian> {
+  Future<FetchHomeDeals> fetch_home_deals;
+  MyApi apiclass=new MyApi();
+
   @override
   Widget build(BuildContext context) {
+    fetch_home_deals=apiclass.fetch_home_deals();
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -208,8 +214,31 @@ class _Dash_MianState extends State<Dash_Mian> {
                   ),
 
 
-
                 ],
+              ),Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text('Top Deals',
+                  style: TextStyle(
+                    color: Color(0xff1D262C),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                  ),
+                  textAlign: TextAlign.start,),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  height: 180,
+
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 3,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return horizentalitem();
+                    },
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -222,31 +251,41 @@ class _Dash_MianState extends State<Dash_Mian> {
                   ),
                   textAlign: TextAlign.start,),
               ),
-              InkWell(child:
-              list(),
-              onTap: (){
-                Navigator.pushNamed(context, "viewsingle");
-              },),
-              InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewsingle");
-                },),InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewsingle");
-                },),InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewsingle");
-                },),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                    height: 180,
+
+                    child: FutureBuilder<FetchHomeDeals>(
+                      future: fetch_home_deals, // a Future<String> or null
+                      builder: (BuildContext context, AsyncSnapshot<FetchHomeDeals> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none: return new Text('Press button to start');
+                          case ConnectionState.waiting: return new Text('Awaiting result...');
+                          default:
+                            if (snapshot.hasError)
+                              return new Text('Error: ${snapshot.error}');
+                            else
+                              return ListView.builder(
+                                itemCount: 3,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  return list(snapshot.data,index);
+                                },
+                              );
+                        }
+                      },
+                    )
+                ),
+              ),
+
             ],
           ),
+
         ),
       ),
     );
   }
-  Widget list(){
+  Widget list(FetchHomeDeals obj,int index){
     return Column(
       children: [
         Padding(
@@ -278,23 +317,23 @@ class _Dash_MianState extends State<Dash_Mian> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 7,
+                        flex: 9,
                         child:Container(
                           height: 75,
                           width: 75,
                           child: Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius:28.0,
-                                  backgroundImage:
-                                  AssetImage('assets/mc.png'),
-                                  backgroundColor: Colors.transparent,
-                                ),
-                              ],
-                            )
+                              padding: const EdgeInsets.all(1.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    radius:28.0,
+                                    backgroundImage:
+                                    NetworkImage(obj.response[index].brandImageName),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ],
+                              )
                           ),
                         ),
                       ),
@@ -310,7 +349,7 @@ class _Dash_MianState extends State<Dash_Mian> {
                                   children: [
                                     Expanded(
                                       flex: 4,
-                                      child: Text('40\$ Off',
+                                      child: Text(obj.response[index].tagLine,
                                         style: TextStyle(
                                           color: Color(0xff1D262C),
                                           fontSize: 17,
@@ -319,116 +358,73 @@ class _Dash_MianState extends State<Dash_Mian> {
                                         ),
                                         textAlign: TextAlign.start,),
                                     ),
-                                    Expanded(
-                                        flex: 3,
-                                        child:Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(Icons.location_on,size: 15,),
-                                            Text('1.4 KM'
-                                                ,
-                                              style: TextStyle(
-                                                color: Color(0xff1D262C).withOpacity(.5),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins',
-                                              ),)
-                                          ],
-                                        )
-                                    )
+
                                   ],
                                 ),
                                 SizedBox(height: 03,),
 
-                                Text('Flat Discounts on Every purchase!',
-                              style: TextStyle(
-                                color: Color(0xff1D262C).withOpacity(.5),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Poppins',
-                              ),),
-                              SizedBox(height: 03,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                Text('Deduction',
+                                  style: TextStyle(
+                                    color: Color(0xff1D262C).withOpacity(.5),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Poppins',
+                                  ),),
+                                SizedBox(height: 03,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(40.0),
-                                    child: Container(
-                                      height: 25.0,
-                                      width: 60,
-                                      color: Color(0xffFFDC68).withOpacity(.3),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Icons.star
-                                            ,size: 18,color: Color(0xffFFDC68),),
-                                            Text(' 4.5',
-                                              style: TextStyle(
-                                                color: Color(0xff1D262C).withOpacity(.5),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins',
-                                              ),),
-                                          ],
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(40.0),
+                                      child: Container(
+                                        height: 25.0,
+                                        width: 60,
+                                        color: Color(0xffFFDC68).withOpacity(.3),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.star
+                                                ,size: 18,color: Color(0xffFFDC68),),
+                                              Text(' 4.5',
+                                                style: TextStyle(
+                                                  color: Color(0xff1D262C).withOpacity(.5),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: 'Poppins',
+                                                ),),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(40.0),
-                                    child: Container(
-                                      height: 25.0,
-                                      width: 60,
-                                      color: Color(0xff0074E4).withOpacity(.3),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
 
-                                            Text('FOOD',
-                                              style: TextStyle(
-                                                color: Color(0xff0074E4),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins',
-                                              ),),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(40.0),
-                                    child: Container(
-                                      height: 25.0,
-                                      width: 60,
-                                      color: Color(0xffCF1E43).withOpacity(.3),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-
-                                            Text('15 DAYS',
-                                              style: TextStyle(
-                                                color: Color(0xffCF1E43).withOpacity(.5),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins',
-                                              ),),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                  ],
+                                ),
 
                               ],
                             ),
                           )
                       ),
+                      Expanded(
+                        flex: 12,
+                        child:   Container(
+                          height: 25,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                side: BorderSide(color: Color(0xff36845B),)),
+                            onPressed: () {
+                              Navigator.pushNamed(context, "viewsingle");
+                            },
+                            color: Color(0xff36845B),
+                            textColor:Colors.white,
+                            child: Text("Get Now".toUpperCase(),
+                                style: TextStyle(fontSize: 12)),
+                          ),
+                        ),
+                      )
 
                     ],
                   )
@@ -437,6 +433,81 @@ class _Dash_MianState extends State<Dash_Mian> {
           ),
         ),
       ],
+    );
+  }
+  Widget horizentalitem(){
+    return Padding(
+      padding: const EdgeInsets.only(left: 05,right: 05,top: 05),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color(0XffEAECF3),
+                blurRadius: 4.0,
+                offset: Offset(0.0, 0.75)
+            )
+          ],
+
+          color: Colors.white,),
+
+        child: Card(
+          elevation:0.0,
+
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+
+          child: Padding(
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+              child: Column(
+                children: [
+                  Container(
+                    height: 75,
+                    width: 75,
+                    child: Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: CircleAvatar(
+                        radius:28.0,
+                        backgroundImage:
+                        AssetImage('assets/mc.png'),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Text('40\$ Off Cashback',
+                    style: TextStyle(
+                      color: Color(0xff1D262C),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                    ),
+                    textAlign: TextAlign.center,),
+                  SizedBox(height: 10,),
+
+                  Container(
+                    height: 25,
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          side: BorderSide(color: Color(0xff36845B),)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, "viewsingle");
+                      },
+                      color: Color(0xff36845B),
+                      textColor:Colors.white,
+                      child: Text("Get Now".toUpperCase(),
+                          style: TextStyle(fontSize: 13)),
+                    ),
+                  )
+
+                ],
+              )
+          ),
+        ),
+      ),
     );
   }
 }

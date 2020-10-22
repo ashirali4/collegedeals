@@ -1,4 +1,8 @@
+
+
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
+import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +12,11 @@ class Blog_View extends StatefulWidget {
 }
 
 class _Favourite_ScreenState extends State<Blog_View> {
+  Future<FetchBlogPost> fetchblogpost;
+  MyApi myapi=new MyApi();
   @override
   Widget build(BuildContext context) {
+    fetchblogpost=myapi.topblogposts();
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -142,33 +149,38 @@ class _Favourite_ScreenState extends State<Blog_View> {
                   ),
                   textAlign: TextAlign.start,),
               ),
-              InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewblog");
-                },),
-              InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewblog");
-                },),
-              InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewblog");
-                },),
-              InkWell(child:
-              list(),
-                onTap: (){
-                  Navigator.pushNamed(context, "viewblog");
-                },),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  height: 1000,
+                    child: FutureBuilder<FetchBlogPost>(
+                      future: fetchblogpost, // a Future<String> or null
+                      builder: (BuildContext context, AsyncSnapshot<FetchBlogPost> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none: return new Text('Press button to start');
+                          case ConnectionState.waiting: return new Text('Awaiting result...');
+                          default:
+                            if (snapshot.hasError)
+                              return new Text('Error: ${snapshot.error}');
+                            else
+                              return ListView.builder(
+                                itemCount: snapshot.data.response.length,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  return list(snapshot.data,index);
+                                },
+                              );
+                        }
+                      },
+                    )
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-  Widget list(){
+  Widget list(FetchBlogPost obj,int index){
     return Column(
       children: [
         Padding(
@@ -207,7 +219,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
                               padding: const EdgeInsets.all(1.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset('assets/postview.png'),
+                                child: Image.network('https://collegedeals.in/site_assets/blog_post_imgs/'+obj.response[index].featuredImage),
                               )
                           ),
                         ),
@@ -220,7 +232,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Every Playstation 5 Game Confirmed ',
+                                Text(obj.response[index].title,
                                   style: TextStyle(
                                     color: Color(0xff1D262C),
                                     fontSize: 17,
@@ -239,14 +251,13 @@ class _Favourite_ScreenState extends State<Blog_View> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       child: Container(
                                         height: 25.0,
-                                        width: 60,
-                                        color: Color(0xff36845B).withOpacity(.6),
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
 
-                                              Text('Tech',
+                                        color: Color(0xff36845B).withOpacity(.6),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 3,right: 3),
+                                          child: Center(
+                                            child: Center(
+                                              child: Text(obj.response[index].postedBy,
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10,
@@ -255,7 +266,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
                                                   fontFamily: 'Poppins',
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ),
