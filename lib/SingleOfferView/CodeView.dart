@@ -1,11 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 class CodeView extends StatefulWidget {
+  String code;
   @override
   _SingleServiceViewState createState() => _SingleServiceViewState();
+  CodeView(this.code);
 }
 
 class _SingleServiceViewState extends State<CodeView> {
@@ -70,7 +73,7 @@ class _SingleServiceViewState extends State<CodeView> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 100,),
+                    SizedBox(height: 50,),
                     Padding(
                       padding: const EdgeInsets.only(left: 10,right: 10),
                       child: Container(
@@ -160,15 +163,32 @@ class _SingleServiceViewState extends State<CodeView> {
                           fontFamily: 'Poppins',
                         ),
                         textAlign: TextAlign.start,),
-                      Text('4 5 6 7 8 ',
-                        style: TextStyle(
+                      // Text('4 5 6 7 8 ',
+                      //   style: TextStyle(
+                      //     color: Color(0xff36845B),
+                      //     fontSize: 28,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontFamily: 'Poppins',
+                      //   ),
+                      //   textAlign: TextAlign.start,),
+                      FlatButton(
                           color: Color(0xff36845B),
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins',
-                        ),
-                        textAlign: TextAlign.start,),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)),
+                          textColor: Colors.white,
+                          disabledColor: Colors.grey,
+                          // padding: EdgeInsets.all(10.0),
+                          onPressed:() async {
+                            var url = widget.code;
+                            await launch(url);
 
+                          },
+                          child: Text('Click here To Avail',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily:'Poppins',
+                                fontWeight: FontWeight.bold
+                            ),))
 
                     ],
                   )

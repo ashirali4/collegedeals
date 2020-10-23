@@ -4,6 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
 import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
+import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/material.dart';
 
 class Blog_View extends StatefulWidget {
@@ -152,13 +153,13 @@ class _Favourite_ScreenState extends State<Blog_View> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
-                  height: 1000,
+                  height: 600,
                     child: FutureBuilder<FetchBlogPost>(
                       future: fetchblogpost, // a Future<String> or null
                       builder: (BuildContext context, AsyncSnapshot<FetchBlogPost> snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.none: return new Text('Press button to start');
-                          case ConnectionState.waiting: return new Text('Awaiting result...');
+                          case ConnectionState.waiting: return Loader();
                           default:
                             if (snapshot.hasError)
                               return new Text('Error: ${snapshot.error}');

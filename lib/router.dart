@@ -14,6 +14,9 @@ import 'SingleOfferView/Viewblog.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
 var signuparg=settings.arguments;
+var singleview=settings.arguments;
+var code=settings.arguments;
+
 
   switch (settings.name) {
 
@@ -33,9 +36,9 @@ var signuparg=settings.arguments;
     case 'dashboardad':
        return MaterialPageRoute(builder: (context) => home_page());
     case 'viewcode':
-      return MaterialPageRoute(builder: (context) => CodeView());
+      return MaterialPageRoute(builder: (context) => CodeView(code));
     case 'viewsingle':
-      return MaterialPageRoute(builder: (context) => SingleServiceView());
+      return MaterialPageRoute(builder: (context) => SingleServiceView(singleview));
     case 'viewblog':
       return MaterialPageRoute(builder: (context) => SingleBlog());
   }

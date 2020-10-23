@@ -1,11 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:collegedeals/APIModels/Single_Data_Sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
 class SingleServiceView extends StatefulWidget {
+  Single_Data_Sender object;
   @override
   _SingleServiceViewState createState() => _SingleServiceViewState();
+  SingleServiceView(this.object);
 }
 
 class _SingleServiceViewState extends State<SingleServiceView> {
@@ -70,7 +73,7 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 100,),
+                  SizedBox(height: 50,),
                   Padding(
                     padding: const EdgeInsets.only(left: 10,right: 10),
                     child: Container(
@@ -84,7 +87,8 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                           disabledColor: Colors.grey,
                           // padding: EdgeInsets.all(10.0),
                           onPressed:(){
-                            Navigator.pushNamed(context, "viewcode");
+                            String link=widget.object.link;
+                            Navigator.pushNamed(context, "viewcode",arguments: link);
                           },
                           child: Text('Reveal Code',
                             style: TextStyle(
@@ -131,7 +135,7 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                                   CircleAvatar(
                                     radius:28.0,
                                     backgroundImage:
-                                    AssetImage('assets/mc.png'),
+                                    NetworkImage(widget.object.brand_image_name),
                                     backgroundColor: Colors.transparent,
                                   ),
                                 ],
@@ -151,7 +155,7 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                                   children: [
                                     Expanded(
                                       flex: 4,
-                                      child: Text('40\$ Off',
+                                      child: Text(widget.object.tagline,
                                         style: TextStyle(
                                           color: Color(0xff1D262C),
                                           fontSize: 17,
@@ -336,94 +340,18 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                            textAlign: TextAlign.start,),
                        ],
                      ),
-                      SizedBox(height: 05,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Branch Location',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                          Text('Bund Road, Mumbai',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.8),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                        ],
-                      ),
-                      SizedBox(height: 05,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Phone',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                          Text('+91 532-512-5125',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.8),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                        ],
-                      ),
-                      SizedBox(height: 05,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Website',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                          Text('mcdonalds.com',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.8),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                        ],
-                      ),
-                      SizedBox(height: 05,),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Offer Validity',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.5),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                          Text('Dec, 2020',
-                            style: TextStyle(
-                              color: Color(0xff1D262C).withOpacity(.8),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.start,),
-                        ],
+
+                      Container(
+                        child: Text(widget.object.Description,
+                          maxLines: 8,
+                          style: TextStyle(
+                            color: Color(0xff1D262C).withOpacity(.5),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Poppins',
+                          ),
+                          textAlign: TextAlign.start,),
                       ),
                      
 

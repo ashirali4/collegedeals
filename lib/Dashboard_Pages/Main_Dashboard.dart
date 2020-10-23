@@ -1,7 +1,9 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:collegedeals/APIModels/Home_DEALS_model.dart';
+import 'package:collegedeals/APIModels/Single_Data_Sender.dart';
 import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
+import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/material.dart';
 
 class Dash_Mian extends StatefulWidget {
@@ -261,7 +263,7 @@ class _Dash_MianState extends State<Dash_Mian> {
                       builder: (BuildContext context, AsyncSnapshot<FetchHomeDeals> snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.none: return new Text('Press button to start');
-                          case ConnectionState.waiting: return new Text('Awaiting result...');
+                          case ConnectionState.waiting: return Loader();
                           default:
                             if (snapshot.hasError)
                               return new Text('Error: ${snapshot.error}');
@@ -416,7 +418,8 @@ class _Dash_MianState extends State<Dash_Mian> {
                                 borderRadius: BorderRadius.circular(5.0),
                                 side: BorderSide(color: Color(0xff36845B),)),
                             onPressed: () {
-                              Navigator.pushNamed(context, "viewsingle");
+                              Single_Data_Sender objj=new Single_Data_Sender(obj.response[index].tagLine, obj.response[index].linkOrCouponValue,obj.response[index].description, obj.response[index].brandImageName);
+                              Navigator.pushNamed(context, "viewsingle",arguments: objj);
                             },
                             color: Color(0xff36845B),
                             textColor:Colors.white,
