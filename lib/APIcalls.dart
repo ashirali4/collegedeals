@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'APIModels/Home_DEALS_model.dart';
+import 'APIModels/Homepage_FAashion_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
 
 //Future<String> funct() async {
@@ -88,6 +89,25 @@ class MyApi {
     else{
       final String responsestring=response.body;
       FetchBlogPost list=fetchBlogPostFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+
+
+  Future<FashionPost> topfashionposts() async {
+    String url= apiurl+'?fetch_brand_details=1&brand_auto_id=1/';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      FashionPost list=fashionPostFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      FashionPost list=fashionPostFromJson(responsestring);
       // print(list.length);
       return list;
     }

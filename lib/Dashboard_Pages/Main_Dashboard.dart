@@ -1,5 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:collegedeals/APIModels/Home_DEALS_model.dart';
+import 'package:collegedeals/APIModels/Homepage_FAashion_model.dart';
 import 'package:collegedeals/APIModels/Single_Data_Sender.dart';
 import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
@@ -13,11 +14,13 @@ class Dash_Mian extends StatefulWidget {
 
 class _Dash_MianState extends State<Dash_Mian> {
   Future<FetchHomeDeals> fetch_home_deals;
+  Future<FashionPost> fashionpsot;
   MyApi apiclass=new MyApi();
 
   @override
   Widget build(BuildContext context) {
     fetch_home_deals=apiclass.fetch_home_deals();
+    fashionpsot=apiclass.topfashionposts();
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -233,13 +236,26 @@ class _Dash_MianState extends State<Dash_Mian> {
                 child: Container(
                   height: 180,
 
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return horizentalitem();
+                  child: FutureBuilder<FashionPost>(
+                    future: fashionpsot, // a Future<String> or null
+                    builder: (BuildContext context, AsyncSnapshot<FashionPost> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none: return new Text('Press button to start');
+                        case ConnectionState.waiting: return Loader();
+                        default:
+                          if (snapshot.hasError)
+                            return new Text('Error: ${snapshot.error}');
+                          else
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.response.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return horizentalitem(snapshot.data,index);
+                              },
+                            );
+                      }
                     },
-                  ),
+                  )
                 ),
               ),
               Padding(
@@ -269,7 +285,7 @@ class _Dash_MianState extends State<Dash_Mian> {
                               return new Text('Error: ${snapshot.error}');
                             else
                               return ListView.builder(
-                                itemCount: 3,
+                                itemCount: snapshot.data.response.length,
                                 itemBuilder: (BuildContext ctxt, int index) {
                                   return list(snapshot.data,index);
                                 },
@@ -438,7 +454,7 @@ class _Dash_MianState extends State<Dash_Mian> {
       ],
     );
   }
-  Widget horizentalitem(){
+  Widget horizentalitem(FashionPost obj,int index){
     return Padding(
       padding: const EdgeInsets.only(left: 05,right: 05,top: 05),
       child: Container(
@@ -474,13 +490,13 @@ class _Dash_MianState extends State<Dash_Mian> {
                       child: CircleAvatar(
                         radius:28.0,
                         backgroundImage:
-                        AssetImage('assets/mc.png'),
+                        NetworkImage('https://collegedeals.in/site_assets/brands_imgs/'+obj.response[index].image),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
                   ),
                   SizedBox(height: 10,),
-                  Text('40\$ Off Cashback',
+                  Text(obj.response[index].tagLine,
                     style: TextStyle(
                       color: Color(0xff1D262C),
                       fontSize: 13,
@@ -497,7 +513,9 @@ class _Dash_MianState extends State<Dash_Mian> {
                           borderRadius: BorderRadius.circular(5.0),
                           side: BorderSide(color: Color(0xff36845B),)),
                       onPressed: () {
-                        Navigator.pushNamed(context, "viewsingle");
+                        Single_Data_Sender objj=new Single_Data_Sender(obj.response[index].tagLine, obj.response[index].websiteLink,obj.response[index].description, obj.response[index].image);
+
+                        Navigator.pushNamed(context, "viewsingle",arguments: objj);
                       },
                       color: Color(0xff36845B),
                       textColor:Colors.white,

@@ -167,8 +167,14 @@ class _Favourite_ScreenState extends State<Blog_View> {
                               return ListView.builder(
                                 itemCount: snapshot.data.response.length,
                                 itemBuilder: (BuildContext ctxt, int index) {
-                                  return list(snapshot.data,index);
+
+                                  return InkWell(
+                                      onTap: (){
+                                        Navigator.pushNamed(context, "viewblog");
+                                      },
+                                      child: list(snapshot.data,index));
                                 },
+
                               );
                         }
                       },
