@@ -1,7 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 class CodeView extends StatefulWidget {
@@ -180,7 +179,7 @@ class _SingleServiceViewState extends State<CodeView> {
                           // padding: EdgeInsets.all(10.0),
                           onPressed:() async {
                             var url = widget.code;
-                            await launch(url);
+                       //     await launch(url);
 
                           },
                           child: Text('Click here To Avail',
