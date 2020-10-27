@@ -1,11 +1,15 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:collegedeals/APIModels/Blog_Sender.dart';
 
 import '../main.dart';
 class SingleBlog extends StatefulWidget {
+  Blog_Sender rec;
+
   @override
   _SingleServiceViewState createState() => _SingleServiceViewState();
+  SingleBlog(this.rec);
 }
 
 class _SingleServiceViewState extends State<SingleBlog> {
@@ -117,7 +121,7 @@ class _SingleServiceViewState extends State<SingleBlog> {
                     children: [
                      Expanded(
                        flex: 3,
-                       child:  Text('How Corona Virus Could Change Plane Boarding',
+                       child:  Text(widget.rec.title,
                          style: TextStyle(
                            color: Color(0xff1D262C),
                            fontSize: 20,
@@ -140,7 +144,7 @@ class _SingleServiceViewState extends State<SingleBlog> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
 
-                                  Text('Tech',
+                                  Text(widget.rec.by,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
@@ -191,8 +195,7 @@ class _SingleServiceViewState extends State<SingleBlog> {
                     children: [
                       SizedBox(height: 10,),
 
-                      Text('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet pharetra justo, fermentum pharetra massa. Duis dolor purus, cursus vitae rutrum sed, maximus ac tortor. Pellentesque id magna quis erat porta dictum. Suspendisse tempor faucibus neque vitae cursus. Ut sodales rhoncus neque, nec egestas nunc porttitor non. Sed consectetur molestie condimentum. Aliquam aliquam enim mi, et ultricies purus volutpat at. Aliquam sed diam vel neque porttitor bibendum a nec libero. Integer ultrices, felis sed blandit fermentum, ipsum arcu ultrices est, tincidunt condimentum nisi justo id neque. Praesent venenatis sem lorem, non rutrum ex ultrices scelerisque.',
-                        style: TextStyle(
+                      Text(widget.rec.description, style: TextStyle(
                           color: Color(0xff1D262C).withOpacity(.5),
                           fontSize: 14,
                           fontWeight: FontWeight.w400,

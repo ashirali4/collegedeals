@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'APIModels/Home_DEALS_model.dart';
 import 'APIModels/Homepage_FAashion_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
+import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
 //Future<String> funct() async {
 //  final prefs = await SharedPreferences.getInstance();
@@ -108,6 +109,23 @@ class MyApi {
     else{
       final String responsestring=response.body;
       FashionPost list=fashionPostFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+  Future<BlogMainCategoires> fetblogcate() async {
+    String url= apiurl+'?fetch_blog_main_categories=1';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      BlogMainCategoires list=blogMainCategoiresFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      BlogMainCategoires list=blogMainCategoiresFromJson(responsestring);
       // print(list.length);
       return list;
     }

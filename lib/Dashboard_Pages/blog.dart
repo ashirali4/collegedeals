@@ -6,6 +6,8 @@ import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
 import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/material.dart';
+import 'package:collegedeals/APIModels/Blog_Sender.dart';
+import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
 class Blog_View extends StatefulWidget {
   @override
@@ -14,10 +16,13 @@ class Blog_View extends StatefulWidget {
 
 class _Favourite_ScreenState extends State<Blog_View> {
   Future<FetchBlogPost> fetchblogpost;
+  Future<BlogMainCategoires> fetchcat;
+
   MyApi myapi=new MyApi();
   @override
   Widget build(BuildContext context) {
     fetchblogpost=myapi.topblogposts();
+    fetchcat=myapi.fetblogcate();
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -41,103 +46,35 @@ class _Favourite_ScreenState extends State<Blog_View> {
                     textAlign: TextAlign.start,),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              onPressed: () {},
+              Center(
+                child: Container(
+                  height: 155,
+                  width: MediaQuery.of(context).size.width,
+                  child: FutureBuilder<BlogMainCategoires>(
+             future: fetchcat, // a Future<String> or null
+                    builder: (BuildContext context, AsyncSnapshot<BlogMainCategoires> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none: return new Text('Press button to start');
+                        case ConnectionState.waiting: return Loader();
+                        default:
+                          if (snapshot.hasError)
+                            return new Text('Error: ${snapshot.error}');
+                          else
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.response.length,
+                              itemBuilder: (BuildContext ctxt, int index) {
+                                return InkWell(
+                                    onTap: (){
+                                    },
+                                    child: categorieslist(snapshot.data,index));
+                              },
 
-                              textColor: Colors.white,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset('assets/postview.png'),
-                              ),
-                              padding: EdgeInsets.all(10),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 04,),
-                            Text('Travel',
-                              style: TextStyle(
-                                color: Color(0xff1D262C),
-                                fontSize: 12,
-
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.center,),
-                          ],
-                        ),
-                      )
+                            );
+                      }
+                    },
                   ),
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              onPressed: () {},
-
-                              textColor: Colors.white,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset('assets/postview.png'),
-                              ),
-                              padding: EdgeInsets.all(10),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 04,),
-                            Text('Career',
-                              style: TextStyle(
-                                color: Color(0xff1D262C),
-                                fontSize: 12,
-
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.center,),
-                          ],
-                        ),
-                      )
-                  ),
-
-                  Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              onPressed: () {},
-
-                              textColor: Colors.white,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset('assets/postview.png'),
-                              ),
-                              padding: EdgeInsets.all(10),
-                              shape: CircleBorder(),
-                            ),
-                            SizedBox(height: 04,),
-                            Text('Shopping',
-                              style: TextStyle(
-                                color: Color(0xff1D262C),
-                                fontSize: 12,
-
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.center,),
-                          ],
-                        ),
-                      )
-                  ),
-
-
-                ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -170,7 +107,13 @@ class _Favourite_ScreenState extends State<Blog_View> {
 
                                   return InkWell(
                                       onTap: (){
-                                        Navigator.pushNamed(context, "viewblog");
+                                        Blog_Sender sender=new Blog_Sender(
+                                            snapshot.data.response[index].title,
+                                            snapshot.data.response[index].content,
+                                            snapshot.data.response[index].postedBy,
+                                          snapshot.data.response[index].featuredImage
+                                        );
+                                        Navigator.pushNamed(context, "viewblog",arguments: sender);
                                       },
                                       child: list(snapshot.data,index));
                                 },
@@ -294,6 +237,38 @@ class _Favourite_ScreenState extends State<Blog_View> {
           ),
         ),
       ],
+    );
+  }
+  Widget categorieslist(BlogMainCategoires data,int index){
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            child: MaterialButton(
+              onPressed: () {},
+              textColor: Colors.white,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.network('https://collegedeals.in/site_assets/blog_main_cat_imgs/'+data.response[index].image),
+              ),
+              padding: EdgeInsets.all(10),
+              shape: CircleBorder(),
+            ),
+          ),
+          SizedBox(height: 04,),
+          Text(data.response[index].name,
+            style: TextStyle(
+              color: Color(0xff1D262C),
+              fontSize: 12,
+
+              fontFamily: 'Poppins',
+            ),
+            textAlign: TextAlign.center,),
+        ],
+      ),
     );
   }
 }
