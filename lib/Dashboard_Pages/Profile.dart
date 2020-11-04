@@ -73,10 +73,10 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
                   padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
                   child: Column(
                     children: [
-                      Listitemsettings("assets/notfication.png","Notifications",swithnotify()),
-                      Listitemsettings("assets/promo.png","Promotions",pass()),
-                      Listitemsettings("assets/languag.png","Language",pass()),
-                      Listitemsettings("assets/refer.png","Refer Someone",pass()),
+                    //  Listitemsettings("assets/notfication.png","Notifications",swithnotify()),
+                    //  Listitemsettings("assets/promo.png","Promotions",pass()),
+                     // Listitemsettings("assets/languag.png","Language",pass()),
+                    //  Listitemsettings("assets/refer.png","Refer Someone",pass()),
                       Listitemsettings("assets/about.png","About Us",SizedBox(width: 1,)),
                       Listitemsettings("assets/support.png","Support",SizedBox(width: 1,)),
                     ],

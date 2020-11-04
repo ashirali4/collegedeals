@@ -16,6 +16,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 var signuparg=settings.arguments;
 var singleview=settings.arguments;
 var code=settings.arguments;
+var blog=settings.arguments;
 
 
   switch (settings.name) {
@@ -40,6 +41,6 @@ var code=settings.arguments;
     case 'viewsingle':
       return MaterialPageRoute(builder: (context) => SingleServiceView(singleview));
     case 'viewblog':
-      return MaterialPageRoute(builder: (context) => SingleBlog());
+      return MaterialPageRoute(builder: (context) => SingleBlog(blog));
   }
 }
