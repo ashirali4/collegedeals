@@ -10,6 +10,8 @@ import 'APIModels/Homepage_FAashion_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
 import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
+import 'APIModels/UserInfoApiModel.dart';
+
 //Future<String> funct() async {
 //  final prefs = await SharedPreferences.getInstance();
 //  final myString = prefs.getString('usertoken') ?? '';
@@ -114,6 +116,22 @@ class MyApi {
     }
   }
 
+
+  Future<UserInfo> fetchuserinfo() async {
+    String url= apiurl+'?fetch_user_info=1/';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      UserInfo list=userInfoFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      UserInfo list=userInfoFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
 
   Future<BlogMainCategoires> fetblogcate() async {
     String url= apiurl+'?fetch_blog_main_categories=1';
