@@ -164,23 +164,7 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                                         ),
                                         textAlign: TextAlign.start,),
                                     ),
-                                    Expanded(
-                                        flex: 3,
-                                        child:Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(Icons.location_on,size: 15,),
-                                            Text('1.4 KM'
-                                              ,
-                                              style: TextStyle(
-                                                color: Color(0xff1D262C).withOpacity(.5),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: 'Poppins',
-                                              ),)
-                                          ],
-                                        )
-                                    )
+
                                   ],
                                 ),
                                 SizedBox(height: 03,),

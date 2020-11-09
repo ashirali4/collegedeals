@@ -3,6 +3,7 @@ import 'package:collegedeals/APIcalls.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordfield/passwordfield.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Dashboard.dart';
 
@@ -242,7 +243,7 @@ class _signup1State extends State<Login> {
                                   onPressed:() async {
                                     name="";
                                     logindetails=await loginapi.signin(email.text, password.text);
-                                    _onLoading(context, logindetails.status);
+                                    _onLoading(context, logindetails.status,logindetails.other);
 
 
 
@@ -274,7 +275,7 @@ class _signup1State extends State<Login> {
     );
   }
 
-  void _onLoading(BuildContext context,String response) {
+  void _onLoading(BuildContext context,String response,List<Other> other) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -300,9 +301,32 @@ class _signup1State extends State<Login> {
       },
     );
     if(response=="Success"){
+      addStringToSF(other);
       new Future.delayed(new Duration(seconds: 3), () {
-        Navigator.pop(context); //pop dialog
-        Navigator.pushNamed(context, "dashboardad");
+        Navigator.pop(context);
+        Navigator.pushAndRemoveUntil(context,
+            PageRouteBuilder(
+                transitionDuration: Duration(milliseconds: 2500),
+                transitionsBuilder: (BuildContext context,
+                    Animation<double> animation,
+                    Animation<double> sanimation,
+                    Widget child){
+                  animation=CurvedAnimation(
+                      parent: animation,curve: Curves.fastLinearToSlowEaseIn);
+                  return SlideTransition(
+                    position: Tween(
+                        begin: Offset(1.0, 0.0),
+                        end: Offset(0.0, 0.0))
+                        .animate(animation),
+                    child: child,
+                  );
+                },
+                pageBuilder: (BuildContext context,Animation<double> animation,Animation<double> sanimation){
+                  return home_page();
+                }
+
+            ), (Route<dynamic> route) => false);//pop dialog
+
       });
     }
     else{
@@ -316,5 +340,12 @@ class _signup1State extends State<Login> {
         desc: "Your email/password is incorrect!",
       ).show();
     }
+  }
+  addStringToSF(List<Other> other) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', other[0].emailAddress);
+    prefs.setString('email', other[0].fullName);
+    prefs.setString('id', other[0].autoId);
+
   }
 }

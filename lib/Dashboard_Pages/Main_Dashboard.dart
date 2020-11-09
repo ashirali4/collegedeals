@@ -28,7 +28,17 @@ class _Dash_MianState extends State<Dash_Mian> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50,),
+              SizedBox(height: 40,),
+              Center(
+                child: Container(
+
+                  width: 170,
+                  height: 50,
+                  child: Image.asset("assets/collegedealslogo.png"
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
               Center(
                 child: SizedBox(
                     height: 140.0,
@@ -272,8 +282,7 @@ class _Dash_MianState extends State<Dash_Mian> {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Container(
-                    height: 180,
-
+                    height: 280,
                     child: FutureBuilder<FetchHomeDeals>(
                       future: fetch_home_deals, // a Future<String> or null
                       builder: (BuildContext context, AsyncSnapshot<FetchHomeDeals> snapshot) {
@@ -482,6 +491,7 @@ class _Dash_MianState extends State<Dash_Mian> {
               padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
               child: Column(
                 children: [
+
                   Container(
                     height: 75,
                     width: 75,

@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:collegedeals/APIModels/UserInfoApiModel.dart';
 import 'package:collegedeals/SVGicons/SVGiconclass.dart';
 import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../APIcalls.dart';
 
@@ -15,7 +18,29 @@ class _Profile_ScreenState extends State<Profile_Screen> {
   bool value=true;
   Future<UserInfo> userinfo;
   MyApi myapi=new MyApi();
+String name="";
+String email="";
+String id="";
 
+   getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    String s = prefs.getString("email");
+    String ss = prefs.getString("name");
+    String sss = prefs.getString("id");
+    setState(() {
+      name=ss;
+      email=s;
+      id=sss;
+    });
+  }
+  @override
+  void initState() {
+    getStringValuesSF();
+
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     userinfo=myapi.fetchuserinfo();
@@ -26,7 +51,18 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 30,),
+              SizedBox(height: 40,),
+
+              Center(
+                child: Container(
+
+                  width: 170,
+                  height: 50,
+                  child: Image.asset("assets/collegedealslogo.png"
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
 
 
               Padding(
@@ -149,88 +185,75 @@ class _Profile_ScreenState extends State<Profile_Screen> {
   }
 
   Widget profilesection() {
-    return FutureBuilder<UserInfo>(
-      future: userinfo, // a Future<String> or null
-      builder: (BuildContext context, AsyncSnapshot<UserInfo> snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none: return new Text('Press button to start');
-          case ConnectionState.waiting: return Loader();
-          default:
-            if (snapshot.hasError)
-              return new Text('Error: ${snapshot.error}');
-            else
-              return Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  children: [
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
+      child: Row(
+        children: [
 
-                    Container(
-                      width: 80.0,
-                      height: 80.0,
-                      decoration: new BoxDecoration(
-                        color: const Color(0xff7c94b6),
-                        image: new DecorationImage(
-                          image: new AssetImage("assets/e.png"),
-                          fit: BoxFit.contain,
-                        ),
-                        borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
-                        border: new Border.all(
-                          color: Colors.white,
-                          width: 4.0,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15,),
+          Container(
+            width: 80.0,
+            height: 80.0,
+            decoration: new BoxDecoration(
+              color: const Color(0xff7c94b6),
+              image: new DecorationImage(
+                image: new AssetImage("assets/e.png"),
+                fit: BoxFit.contain,
+              ),
+              borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+              border: new Border.all(
+                color: Colors.white,
+                width: 4.0,
+              ),
+            ),
+          ),
+          SizedBox(width: 15,),
 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(snapshot.data.response[0].fullName,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Poppins',
-                          ),
-                          textAlign: TextAlign.start,),
-                        SizedBox(height: 03,),
-                        Row(
-                          children: [
-                            Icon(Icons.mail_outline,size: 15,color: Colors.white,),
-                            Text(snapshot.data.response[0].emailAddress,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.start,),
-                          ],
-                        ),
-                        SizedBox(height: 03,),
-
-                        Row(
-                          children: [
-                            Icon(Icons.perm_identity,size: 15,color: Colors.white,),
-                            Text(" Student ID: "+snapshot.data.response[0].autoId,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                              ),
-                              textAlign: TextAlign.start,),
-                          ],
-                        ),
-
-                      ],
-                    ),
-
-                  ],
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(email,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
                 ),
-              );
-        }
-      },
+                textAlign: TextAlign.start,),
+              SizedBox(height: 03,),
+              Row(
+                children: [
+                  Icon(Icons.mail_outline,size: 15,color: Colors.white,),
+                  Text(name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                    ),
+                    textAlign: TextAlign.start,),
+                ],
+              ),
+              SizedBox(height: 03,),
+
+              Row(
+                children: [
+                  Icon(Icons.perm_identity,size: 15,color: Colors.white,),
+                  Text(" Student ID: "+id,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                    ),
+                    textAlign: TextAlign.start,),
+                ],
+              ),
+
+            ],
+          ),
+
+        ],
+      ),
     );
 
   }

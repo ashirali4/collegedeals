@@ -19,7 +19,7 @@ class _homepageState extends State<home_page> {
 
   final tabs= [
     Dash_Mian(),
-    Favourite_Screen(),
+    //Favourite_Screen(),
     Blog_View(),
     Setting_Dashboard(),
     Profile_Screen(),
@@ -65,16 +65,16 @@ class _homepageState extends State<home_page> {
               backgroundColor: Color(0xffFFFFFF),
             ),
 
-            BottomNavigationBarItem(
-              // icon: Image.asset('assets/gab.png'),
-              icon: Icon(MyFlutterAppIcon.favorites,size: 20,),
-              title:Text("Invoices"
-                ,style: TextStyle(
-                    fontFamily: "OpenSans",
-                    fontSize: 12,
-                    color: Color(0xFFBBBBBB)
-                ),),
-            ),
+            // BottomNavigationBarItem(
+            //   // icon: Image.asset('assets/gab.png'),
+            //   icon: Icon(MyFlutterAppIcon.favorites,size: 20,),
+            //   title:Text("Invoices"
+            //     ,style: TextStyle(
+            //         fontFamily: "OpenSans",
+            //         fontSize: 12,
+            //         color: Color(0xFFBBBBBB)
+            //     ),),
+            // ),
 
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),

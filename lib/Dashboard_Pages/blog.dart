@@ -30,7 +30,17 @@ class _Favourite_ScreenState extends State<Blog_View> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 30,),
+              SizedBox(height: 40,),
+              Center(
+                child: Container(
+
+                  width: 170,
+                  height: 50,
+                  child: Image.asset("assets/collegedealslogo.png"
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
 
 
               Center(
