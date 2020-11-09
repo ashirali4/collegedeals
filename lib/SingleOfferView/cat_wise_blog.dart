@@ -9,134 +9,97 @@ import 'package:flutter/material.dart';
 import 'package:collegedeals/APIModels/Blog_Sender.dart';
 import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
-class Blog_View extends StatefulWidget {
+class Cate_Wise_Blog extends StatefulWidget {
+  String id;
   @override
   _Favourite_ScreenState createState() => _Favourite_ScreenState();
+  Cate_Wise_Blog(this.id);
 }
 
-class _Favourite_ScreenState extends State<Blog_View> {
+class _Favourite_ScreenState extends State<Cate_Wise_Blog> {
   Future<FetchBlogPost> fetchblogpost;
   Future<BlogMainCategoires> fetchcat;
 
   MyApi myapi=new MyApi();
   @override
   Widget build(BuildContext context) {
-    fetchblogpost=myapi.topblogposts();
+    fetchblogpost=myapi.catewisefetch(widget.id);
     fetchcat=myapi.fetblogcate();
-    return SingleChildScrollView(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10,right: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 40,),
-              Center(
-                child: Container(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10,right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 40,),
+                Center(
+                  child: Container(
 
-                  width: 170,
-                  height: 50,
-                  child: Image.asset("assets/collegedealslogo.png"
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
-
-
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text('Blog',
-                    style: TextStyle(
-                      color: Color(0xff1D262C),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
+                    width: 170,
+                    height: 50,
+                    child: Image.asset("assets/collegedealslogo.png"
                     ),
-                    textAlign: TextAlign.start,),
-                ),
-              ),
-              Center(
-                child: Container(
-                  height: 155,
-                  width: MediaQuery.of(context).size.width,
-                  child: FutureBuilder<BlogMainCategoires>(
-             future: fetchcat, // a Future<String> or null
-                    builder: (BuildContext context, AsyncSnapshot<BlogMainCategoires> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none: return new Text('Press button to start');
-                        case ConnectionState.waiting: return Loader();
-                        default:
-                          if (snapshot.hasError)
-                            return new Text('Error: ${snapshot.error}');
-                          else
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.response.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return InkWell(
-                                    onTap: (){
-                                      String id=snapshot.data.response[index].autoId;
-                                      Navigator.pushNamed(context, "catewisefetch", arguments: id);
-                                    },
-                                    child: categorieslist(snapshot.data,index));
-                              },
-
-                            );
-                      }
-                    },
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text('Recommended for you',
-                  style: TextStyle(
-                    color: Color(0xff1D262C),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
+                SizedBox(height: 10,),
+
+
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text('Blog',
+                      style: TextStyle(
+                        color: Color(0xff1D262C),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
+                      ),
+                      textAlign: TextAlign.start,),
                   ),
-                  textAlign: TextAlign.start,),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                  height: 600,
-                    child: FutureBuilder<FetchBlogPost>(
-                      future: fetchblogpost, // a Future<String> or null
-                      builder: (BuildContext context, AsyncSnapshot<FetchBlogPost> snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.none: return new Text('Press button to start');
-                          case ConnectionState.waiting: return Loader();
-                          default:
-                            if (snapshot.hasError)
-                              return new Text('Error: ${snapshot.error}');
-                            else
-                              return ListView.builder(
-                                itemCount: snapshot.data.response.length,
-                                itemBuilder: (BuildContext ctxt, int index) {
-
-                                  return InkWell(
-                                      onTap: (){
-                                        Blog_Sender sender=new Blog_Sender(
-                                            snapshot.data.response[index].title,
-                                            snapshot.data.response[index].content,
-                                            snapshot.data.response[index].postedBy,
-                                          snapshot.data.response[index].featuredImage
-                                        );
-                                        Navigator.pushNamed(context, "viewblog",arguments: sender);
-                                      },
-                                      child: list(snapshot.data,index));
-                                },
-
-                              );
-                        }
-                      },
-                    )
                 ),
-              ),
-            ],
+
+
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                      height: 1000,
+                      child: FutureBuilder<FetchBlogPost>(
+                        future: fetchblogpost, // a Future<String> or null
+                        builder: (BuildContext context, AsyncSnapshot<FetchBlogPost> snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none: return new Text('Press button to start');
+                            case ConnectionState.waiting: return Loader();
+                            default:
+                              if (snapshot.hasError)
+                                return new Text('Error: ${snapshot.error}');
+                              else
+                                return ListView.builder(
+                                  itemCount: snapshot.data.response.length,
+                                  itemBuilder: (BuildContext ctxt, int index) {
+
+                                    return InkWell(
+                                        onTap: (){
+                                          Blog_Sender sender=new Blog_Sender(
+                                              snapshot.data.response[index].title,
+                                              snapshot.data.response[index].content,
+                                              snapshot.data.response[index].postedBy,
+                                              snapshot.data.response[index].featuredImage
+                                          );
+                                          Navigator.pushNamed(context, "viewblog",arguments: sender);
+                                        },
+                                        child: list(snapshot.data,index));
+                                  },
+
+                                );
+                          }
+                        },
+                      )
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -202,7 +165,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
                                     fontFamily: 'Poppins',
                                   ),
                                   textAlign: TextAlign.start,
-                                maxLines: 3,),
+                                  maxLines: 3,),
                                 SizedBox(height: 05,),
 
                                 Row(
@@ -260,10 +223,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
             height: 100,
             width: 100,
             child: MaterialButton(
-              onPressed: () {
-                String id=data.response[index].autoId;
-                Navigator.pushNamed(context, "catewisefetch", arguments: id);
-              },
+              onPressed: () {},
               textColor: Colors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),

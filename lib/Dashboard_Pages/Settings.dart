@@ -92,10 +92,15 @@ String id="";
                   ),
                   textAlign: TextAlign.start,),
               ),
-              list(Icons.mail_outline,"Change Email",pass()),
-              list(Icons.security,"Change Password",pass()),
-              list(Icons.help_outline,"Change Help",pass()),
-              list(Icons.exit_to_app," Logout",pass()),
+              // list(Icons.mail_outline,"Change Email",pass()),
+              // list(Icons.security,"Change Password",pass()),
+              list(Icons.help_outline," Help",pass()),
+             InkWell(
+               onTap: (){
+                 Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
+               },
+               child:  list(Icons.exit_to_app," Logout",pass()),
+             )
 
 
             ],

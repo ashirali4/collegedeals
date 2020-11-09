@@ -11,15 +11,19 @@ import 'SignupSignin/Signup.dart';
 import 'SignupSignin/forget_pass.dart';
 import 'SingleOfferView/SingleService.dart';
 import 'SingleOfferView/Viewblog.dart';
+import 'SingleOfferView/cat_wise_blog.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
 var signuparg=settings.arguments;
 var singleview=settings.arguments;
 var code=settings.arguments;
 var blog=settings.arguments;
+var blogg=settings.arguments;
 
 
-  switch (settings.name) {
+
+
+switch (settings.name) {
 
 
     case 'towardslogin':
@@ -42,5 +46,9 @@ var blog=settings.arguments;
       return MaterialPageRoute(builder: (context) => SingleServiceView(singleview));
     case 'viewblog':
       return MaterialPageRoute(builder: (context) => SingleBlog(blog));
+    case 'catewisefetch':
+      return MaterialPageRoute(builder: (context) => Cate_Wise_Blog(blogg));
+      case 'login':
+      return MaterialPageRoute(builder: (context) => Login());
   }
 }
