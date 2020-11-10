@@ -96,7 +96,9 @@ String id="";
               // list(Icons.security,"Change Password",pass()),
               list(Icons.help_outline," Help",pass()),
              InkWell(
-               onTap: (){
+               onTap: () async {
+                 final prefs = await SharedPreferences.getInstance();
+                 prefs.setString('check', 'no');
                  Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
                },
                child:  list(Icons.exit_to_app," Logout",pass()),

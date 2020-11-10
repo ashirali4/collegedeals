@@ -346,6 +346,7 @@ class _signup1State extends State<Login> {
     prefs.setString('name', other[0].emailAddress);
     prefs.setString('email', other[0].fullName);
     prefs.setString('id', other[0].autoId);
+    prefs.setString('check', 'yes');
 
   }
 }
