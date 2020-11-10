@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
+import 'package:collegedeals/APIModels/Forgot_pass_API.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -62,6 +63,26 @@ class MyApi {
     }
   }
 
+ // for forgot pass
+  Future<Forgetpass> forgotpass(String email) async {
+    var dio = Dio();
+    Map<String,dynamic> map=new Map<String,dynamic>();
+    map={
+      "email_address" : email,
+      "forget_submit" : 1,
+
+    };
+    FormData formData = FormData.fromMap(map);
+    var response = await dio.post(apiurl, data: formData);
+    if(response.statusCode==200){
+      Forgetpass model=forgetpassFromJson(response.toString());
+      return model;
+    }
+    else{
+      Forgetpass model=forgetpassFromJson(response.toString());
+      return model;
+    }
+  }
   // API FOR THE FETCH HOME DEALS
 
   Future<FetchHomeDeals> fetch_home_deals() async {

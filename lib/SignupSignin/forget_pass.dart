@@ -1,4 +1,7 @@
+import 'package:collegedeals/APIModels/Forgot_pass_API.dart';
+import 'package:collegedeals/APIcalls.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 class Forgot_Pass extends StatefulWidget {
@@ -7,8 +10,9 @@ class Forgot_Pass extends StatefulWidget {
 }
 bool _passwordVisible = false;
 class _signup1State extends State<Forgot_Pass> {
-
-  @override
+   MyApi api=new MyApi();
+   TextEditingController emailc=new TextEditingController();
+   @override
   void initState() {
     _passwordVisible = false;
   }
@@ -66,6 +70,7 @@ class _signup1State extends State<Forgot_Pass> {
                         child: Column(
                           children:[
                             new TextField(
+                              controller: emailc,
                               style: TextStyle(
                                 fontFamily: "Poppins",
                                 fontSize: 20,
@@ -108,8 +113,25 @@ class _signup1State extends State<Forgot_Pass> {
                                   textColor: Colors.white,
                                   disabledColor: Colors.grey,
                                   // padding: EdgeInsets.all(10.0),
-                                  onPressed:(){
-                                    Navigator.pushNamed(context, "resetpassword");
+                                  onPressed:() async {
+                                    Forgetpass pss=new Forgetpass();
+                                    pss= await api.forgotpass(emailc.text);
+                                    if(pss.status.isNotEmpty){
+                                      Alert(
+                                        context: context,
+                                        type: AlertType.success,
+                                        title: "Success",
+                                        desc: "An email has been sent to you!",
+                                      ).show();
+                                    }
+                                    else{
+                                      Alert(
+                                        context: context,
+                                        type: AlertType.error,
+                                        title: "Error",
+                                        desc: "Failed to Reset",
+                                      ).show();
+                                    }
                                   },
                                   child: Text('Send Email',
                                     style: TextStyle(
