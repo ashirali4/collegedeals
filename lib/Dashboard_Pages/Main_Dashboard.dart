@@ -1,4 +1,5 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:collegedeals/APIModels/Fetch_Brands_From_Subcat.dart';
 import 'package:collegedeals/APIModels/Home_DEALS_model.dart';
 import 'package:collegedeals/APIModels/Homepage_FAashion_model.dart';
 import 'package:collegedeals/APIModels/Single_Data_Sender.dart';
@@ -14,13 +15,13 @@ class Dash_Mian extends StatefulWidget {
 
 class _Dash_MianState extends State<Dash_Mian> {
   Future<FetchHomeDeals> fetch_home_deals;
-  Future<FashionPost> fashionpsot;
+  Future<Fetchbrandsfromsub> fashionpsot;
   MyApi apiclass=new MyApi();
 
   @override
   Widget build(BuildContext context) {
     fetch_home_deals=apiclass.fetch_home_deals();
-    fashionpsot=apiclass.topfashionposts();
+    fashionpsot=apiclass.hometopdeals();
     return SingleChildScrollView(
       child: Container(
         child: Padding(
@@ -104,126 +105,163 @@ class _Dash_MianState extends State<Dash_Mian> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xff36845B),
-                            textColor: Colors.white,
-                            child: Icon(
-                              MyFlutterAppIcon.iconnn,
-                              size: 35,
+                    child: InkWell(
+                      onTap: (){
+                        int id=2;
+                        Navigator.pushNamed(context, "subcat",arguments: id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                int id=2;
+                                Navigator.pushNamed(context, "subcat",arguments: id);
 
-                            ),
-                            padding: EdgeInsets.all(10),
-                            shape: CircleBorder(),
-                          ),
-                          SizedBox(height: 04,),
-                          Text('Health & Beauty',
-                            style: TextStyle(
-                              color: Color(0xff1D262C),
-                              fontSize: 12,
-
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.center,),
-                        ],
-                      ),
-                    )
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xffFF993D),
-                            textColor: Colors.white,
-                            child: Icon(
-                              MyFlutterAppIcon.movie,
-                              size: 35,
-                            ),
-                            padding: EdgeInsets.all(10),
-                            shape: CircleBorder(),
-                          ),
-                          SizedBox(height: 04,),
-                          Text('Lifestyle',
-                            style: TextStyle(
-                              color: Color(0xff1D262C),
-                              fontSize: 12,
-
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.center,),
-                        ],
-                      ),
-                    )
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xff629CFF),
-                            textColor: Colors.white,
-                            child: Center(
+                              },
+                              color: Color(0xff36845B),
+                              textColor: Colors.white,
                               child: Icon(
-                                MyFlutterAppIcon.mobile,
+                                MyFlutterAppIcon.iconnn,
+                                size: 35,
+
+                              ),
+                              padding: EdgeInsets.all(10),
+                              shape: CircleBorder(),
+                            ),
+                            SizedBox(height: 04,),
+                            Text('Health & Beauty',
+                              style: TextStyle(
+                                color: Color(0xff1D262C),
+                                fontSize: 12,
+
+                                fontFamily: 'Poppins',
+                              ),
+                              textAlign: TextAlign.center,),
+                          ],
+                        ),
+                      ),
+                    )
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: InkWell(
+                      onTap: (){
+                        int id=3;
+                        Navigator.pushNamed(context, "subcat",arguments: id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                int id=3;
+                                Navigator.pushNamed(context, "subcat",arguments: id);
+                              },
+                              color: Color(0xffFF993D),
+                              textColor: Colors.white,
+                              child: Icon(
+                                MyFlutterAppIcon.movie,
                                 size: 35,
                               ),
+                              padding: EdgeInsets.all(10),
+                              shape: CircleBorder(),
                             ),
-                            padding: EdgeInsets.all(10),
-                            shape: CircleBorder(),
-                          ),
-                          SizedBox(height: 04,),
-                          Text('Tech',
-                            style: TextStyle(
-                              color: Color(0xff1D262C),
-                              fontSize:12,
+                            SizedBox(height: 04,),
+                            Text('Lifestyle',
+                              style: TextStyle(
+                                color: Color(0xff1D262C),
+                                fontSize: 12,
 
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.center,),
-                        ],
+                                fontFamily: 'Poppins',
+                              ),
+                              textAlign: TextAlign.center,),
+                          ],
+                        ),
                       ),
                     )
                   ),
                   Expanded(
                     flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xffCF1E43),
-                            textColor: Colors.white,
-                            child: Center(
-                              child: Icon(
-                                MyFlutterAppIcon.shirt,
-                                size: 35,
+                    child: InkWell(
+                      onTap: (){
+                        int id=4;
+                        Navigator.pushNamed(context, "subcat",arguments: id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                int id=4;
+                                Navigator.pushNamed(context, "subcat",arguments: id);
+                              },
+                              color: Color(0xff629CFF),
+                              textColor: Colors.white,
+                              child: Center(
+                                child: Icon(
+                                  MyFlutterAppIcon.mobile,
+                                  size: 35,
+                                ),
                               ),
+                              padding: EdgeInsets.all(10),
+                              shape: CircleBorder(),
                             ),
-                            padding: EdgeInsets.all(10),
-                            shape: CircleBorder(),
-                          ),
-                          SizedBox(height: 04,),
-                          Text('Fashion',
-                            style: TextStyle(
-                              color: Color(0xff1D262C),
-                              fontSize: 12,
+                            SizedBox(height: 04,),
+                            Text('Tech',
+                              style: TextStyle(
+                                color: Color(0xff1D262C),
+                                fontSize:12,
 
-                              fontFamily: 'Poppins',
+                                fontFamily: 'Poppins',
+                              ),
+                              textAlign: TextAlign.center,),
+                          ],
+                        ),
+                      ),
+                    )
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: InkWell(
+                      onTap: (){
+                        int id=1;
+                        Navigator.pushNamed(context, "subcat",arguments: id);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                int id=1;
+                                Navigator.pushNamed(context, "subcat",arguments: id);
+                              },
+                              color: Color(0xffCF1E43),
+                              textColor: Colors.white,
+                              child: Center(
+                                child: Icon(
+                                  MyFlutterAppIcon.shirt,
+                                  size: 35,
+                                ),
+                              ),
+                              padding: EdgeInsets.all(10),
+                              shape: CircleBorder(),
                             ),
-                            textAlign: TextAlign.center,),
-                        ],
+                            SizedBox(height: 04,),
+                            Text('Fashion',
+                              style: TextStyle(
+                                color: Color(0xff1D262C),
+                                fontSize: 12,
+
+                                fontFamily: 'Poppins',
+                              ),
+                              textAlign: TextAlign.center,),
+                          ],
+                        ),
                       ),
                     )
                   ),
@@ -246,9 +284,9 @@ class _Dash_MianState extends State<Dash_Mian> {
                 child: Container(
                   height: 180,
 
-                  child: FutureBuilder<FashionPost>(
+                  child: FutureBuilder<Fetchbrandsfromsub>(
                     future: fashionpsot, // a Future<String> or null
-                    builder: (BuildContext context, AsyncSnapshot<FashionPost> snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot<Fetchbrandsfromsub> snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none: return new Text('Press button to start');
                         case ConnectionState.waiting: return Loader();
@@ -463,7 +501,7 @@ class _Dash_MianState extends State<Dash_Mian> {
       ],
     );
   }
-  Widget horizentalitem(FashionPost obj,int index){
+  Widget horizentalitem(Fetchbrandsfromsub obj,int index){
     return Padding(
       padding: const EdgeInsets.only(left: 05,right: 05,top: 05),
       child: Container(
@@ -500,13 +538,13 @@ class _Dash_MianState extends State<Dash_Mian> {
                       child: CircleAvatar(
                         radius:28.0,
                         backgroundImage:
-                        NetworkImage('https://collegedeals.in/site_assets/brands_imgs/'+obj.response[index].image),
+                        NetworkImage(obj.response[index].brandImageName),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
                   ),
                   SizedBox(height: 10,),
-                  Text(obj.response[index].tagLine,
+                  Text(obj.response[index].brandName,
                     style: TextStyle(
                       color: Color(0xff1D262C),
                       fontSize: 13,
@@ -523,9 +561,9 @@ class _Dash_MianState extends State<Dash_Mian> {
                           borderRadius: BorderRadius.circular(5.0),
                           side: BorderSide(color: Color(0xff36845B),)),
                       onPressed: () {
-                        Single_Data_Sender objj=new Single_Data_Sender(obj.response[index].tagLine, obj.response[index].websiteLink,obj.response[index].description, obj.response[index].image);
+                       Single_Data_Sender objj=new Single_Data_Sender("", obj.response[index].brandAutoId,"", obj.response[index].brandImageName);
 
-                        Navigator.pushNamed(context, "viewsingle",arguments: objj);
+                      Navigator.pushNamed(context, "viewsinglebrand",arguments: objj);
                       },
                       color: Color(0xff36845B),
                       textColor:Colors.white,

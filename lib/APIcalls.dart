@@ -2,15 +2,19 @@ import 'dart:convert';
 
 import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
 import 'package:collegedeals/APIModels/Forgot_pass_API.dart';
+import 'package:collegedeals/APIModels/SingleBrandDetailsApiModel.dart';
+import 'package:collegedeals/BrandsFetch/Sub_CategoriesWiseFetch.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
+import 'APIModels/Fetch_Brands_From_Subcat.dart';
 import 'APIModels/Home_DEALS_model.dart';
 import 'APIModels/Homepage_FAashion_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
 import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
+import 'APIModels/SubCatFetch.dart';
 import 'APIModels/UserInfoApiModel.dart';
 
 //Future<String> funct() async {
@@ -100,6 +104,53 @@ class MyApi {
       return list;
     }
   }
+
+
+
+
+
+  Future<Fetchbrandsfromsub> subcatbrands(String id) async {
+    String url= apiurl+'?fetch_sub_cat_linked_brands=1&auto_id='+id;
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      Fetchbrandsfromsub list=fetchbrandsfromsubFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      Fetchbrandsfromsub list=fetchbrandsfromsubFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+
+
+
+
+
+  //fetch the home top deals
+  Future<Fetchbrandsfromsub> hometopdeals() async {
+    String url= apiurl+'?fetch_sub_cat_linked_brands=1&auto_id=24';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      Fetchbrandsfromsub list=fetchbrandsfromsubFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      Fetchbrandsfromsub list=fetchbrandsfromsubFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+
+
   // API FOR THE blogposts
 
   Future<FetchBlogPost> topblogposts() async {
@@ -156,6 +207,23 @@ class MyApi {
   }
 
 
+  Future<List<Subcatfetchapi>> subcatlist(int id) async {
+    String url= apiurl+'?fetch_sub_categories=1&main_cat_auto_id='+id.toString();
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      List<Subcatfetchapi> list=subcatfetchapiFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      List<Subcatfetchapi> list=subcatfetchapiFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
   Future<UserInfo> fetchuserinfo() async {
     String url= apiurl+'?fetch_user_info=1/';
     final response= await http.get(url);
@@ -183,6 +251,28 @@ class MyApi {
     else{
       final String responsestring=response.body;
       BlogMainCategoires list=blogMainCategoiresFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+
+
+  //Single BrnadView Fetch
+
+  //fetch the home top deals
+  Future<SingleBrandDetails> singlebrandview(String id) async {
+    String url= apiurl+'?fetch_brand_deals=1&brand_auto_id='+id;
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      SingleBrandDetails list=singleBrandDetailsFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      SingleBrandDetails list=singleBrandDetailsFromJson(responsestring);
       // print(list.length);
       return list;
     }
