@@ -44,6 +44,7 @@ class Response {
     this.brandAutoId,
     this.brandImageName,
     this.brandName,
+    this.brandTagLine,
   });
 
   String autoId;
@@ -52,6 +53,7 @@ class Response {
   String brandAutoId;
   String brandImageName;
   String brandName;
+  String brandTagLine;
 
   factory Response.fromJson(Map<String, dynamic> json) => Response(
     autoId: json["auto_id"] == null ? null : json["auto_id"],
@@ -60,6 +62,7 @@ class Response {
     brandAutoId: json["brand_auto_id"] == null ? null : json["brand_auto_id"],
     brandImageName: json["brand_image_name"] == null ? null : json["brand_image_name"],
     brandName: json["brand_name"] == null ? null : json["brand_name"],
+    brandTagLine: json["brand_tag_line"] == null ? null : json["brand_tag_line"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class Response {
     "brand_auto_id": brandAutoId == null ? null : brandAutoId,
     "brand_image_name": brandImageName == null ? null : brandImageName,
     "brand_name": brandName == null ? null : brandName,
+    "brand_tag_line": brandTagLine == null ? null : brandTagLine,
   };
 }

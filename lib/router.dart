@@ -8,6 +8,7 @@ import 'package:collegedeals/SingleOfferView/SingleBrandView.dart';
 import 'package:flutter/material.dart';
 
 import 'BrandsFetch/Sub_CategoriesWiseFetch.dart';
+import 'Dashboard_Pages/SearchBrands.dart';
 import 'Intro/welcome_screen.dart';
 import 'SignupSignin/Signup.dart';
 import 'SignupSignin/forget_pass.dart';
@@ -23,13 +24,15 @@ var blog=settings.arguments;
 var blogg=settings.arguments;
 var mainautoid=settings.arguments;
 var singleviewbrand=settings.arguments;
-
+var searrr=settings.arguments;
 
 switch (settings.name) {
 
 
     case 'towardslogin':
       return MaterialPageRoute(builder: (context) => welcomescreen());
+  case 'search':
+    return MaterialPageRoute(builder: (context) => Search_Brands(searrr));
     case 'SignUp':
       return MaterialPageRoute(builder: (context) => signup1());
     case 'Signupnext':

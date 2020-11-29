@@ -206,7 +206,7 @@ class _SingleServiceViewState extends State<SingleBrandView> {
                                   ),),
                                 SizedBox(height: 03,),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.start,
 
                                   children: [
                                     ClipRRect(
@@ -233,29 +233,7 @@ class _SingleServiceViewState extends State<SingleBrandView> {
                                         ),
                                       ),
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(40.0),
-                                      child: Container(
-                                        height: 25.0,
-                                        width: 60,
-                                        color: Color(0xff0074E4).withOpacity(.3),
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-
-                                              Text('FOOD',
-                                                style: TextStyle(
-                                                  color: Color(0xff0074E4),
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: 'Poppins',
-                                                ),),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    SizedBox(width: 20,),
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(40.0),
                                       child: Container(

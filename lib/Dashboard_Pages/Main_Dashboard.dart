@@ -18,6 +18,10 @@ class _Dash_MianState extends State<Dash_Mian> {
   Future<Fetchbrandsfromsub> fashionpsot;
   MyApi apiclass=new MyApi();
 
+
+  TextEditingController searchc=new TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     fetch_home_deals=apiclass.fetch_home_deals();
@@ -31,13 +35,51 @@ class _Dash_MianState extends State<Dash_Mian> {
             children: [
               SizedBox(height: 40,),
               Center(
-                child: Container(
+                child:   Padding(
+                  padding: const EdgeInsets.only(left: 05, right: 05,top: 05),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 25,
+                          offset: const Offset(0, 1),
+                        ),
+                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                    ),
+                    child: Theme(
+                      data: new ThemeData(
+                        primaryColor: Colors.transparent,
+                        primaryColorDark: Colors.transparent,
 
-                  width: 170,
-                  height: 50,
-                  child: Image.asset("assets/collegedealslogo.png"
+                      ),
+                      child: TextFormField(
+                        controller: searchc,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+
+//                      border: new OutlineInputBorder(
+//                          borderSide: new BorderSide(color: Colors.transparent,width: 0.0)),
+                          contentPadding:
+                          EdgeInsets.only(top: 14,bottom: 10,left: 20,right: 10), // add padding to adjust icon
+                          isDense: true,
+                          hintText: "Search",
+                          suffixIcon: Padding(
+                            padding:
+                            EdgeInsets.only(top: 10,bottom: 10,left: 10,right: 20), // add padding to adjust icon
+                            child: InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, "search",arguments: searchc.text);
+                              },
+                                child: Icon(Icons.search_sharp, size: 25,color: Theme.of(context).primaryColor,)),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                )
               ),
               SizedBox(height: 10,),
               Center(
@@ -526,7 +568,7 @@ class _Dash_MianState extends State<Dash_Mian> {
           ),
 
           child: Padding(
-              padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 05,bottom: 15),
               child: Column(
                 children: [
 
@@ -543,7 +585,7 @@ class _Dash_MianState extends State<Dash_Mian> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 5,),
                   Text(obj.response[index].brandName,
                     style: TextStyle(
                       color: Color(0xff1D262C),
@@ -552,7 +594,15 @@ class _Dash_MianState extends State<Dash_Mian> {
                       fontFamily: 'Poppins',
                     ),
                     textAlign: TextAlign.center,),
-                  SizedBox(height: 10,),
+                  Text(obj.response[index].brandTagLine,
+                    style: TextStyle(
+                      color: Color(0xff1D262C),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                    ),
+                    textAlign: TextAlign.center,),
+                  SizedBox(height: 5,),
 
                   Container(
                     height: 25,
