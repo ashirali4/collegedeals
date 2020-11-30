@@ -77,8 +77,20 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
                     //  Listitemsettings("assets/promo.png","Promotions",pass()),
                      // Listitemsettings("assets/languag.png","Language",pass()),
                     //  Listitemsettings("assets/refer.png","Refer Someone",pass()),
-                      Listitemsettings("assets/about.png","About Us",SizedBox(width: 1,)),
-                      Listitemsettings("assets/support.png","Support",SizedBox(width: 1,)),
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, "aboutus");
+                        },
+                        child: Listitemsettings("assets/about.png","About Us",SizedBox(width: 1,)),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.pushNamed(context, "support");
+                        },
+                        child:  Listitemsettings("assets/support.png","Support",SizedBox(width: 1,)),
+                      ),
+
+
                     ],
                   )
               ),

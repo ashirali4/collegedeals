@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 class CodeView extends StatefulWidget {
@@ -11,6 +12,16 @@ class CodeView extends StatefulWidget {
 }
 
 class _SingleServiceViewState extends State<CodeView> {
+  bool ali;
+  String text;
+  bool visbleornot=false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    text=widget.code;
+    ali = widget.code.contains('http');
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -170,26 +181,70 @@ class _SingleServiceViewState extends State<CodeView> {
                       //     fontFamily: 'Poppins',
                       //   ),
                       //   textAlign: TextAlign.start,),
-                      FlatButton(
-                          color: Color(0xff36845B),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0)),
-                          textColor: Colors.white,
-                          disabledColor: Colors.grey,
-                          // padding: EdgeInsets.all(10.0),
-                          onPressed:() async {
-                            var url = widget.code;
-                       //     await launch(url);
+                      SizedBox(height: 20,),
+                      Row(
+                        children: [
+                          Expanded(flex:15,child: FlatButton(
+                              color: ali==true ? Color(0xff36845B):Color(0xff8fd1ae),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              textColor: Colors.white,
+                              disabledColor: Color(0xff8fd1ae),
+                              // padding: EdgeInsets.all(10.0),
 
-                          },
-                          child: Text('Click here To Avail',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily:'Poppins',
-                                fontWeight: FontWeight.bold
-                            ),))
+                              onPressed: ali==true ?  () async {
+                                var url = widget.code;
+                                await launch(url);
+                              }:null,
+                              child: Text('DISCOUNT LINK',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily:'Poppins',
+                                    fontWeight: FontWeight.bold
+                                ),))),
+                          Expanded(flex:1,child: SizedBox(width: 1,)),
+                          Expanded(flex:15,child: FlatButton(
+
+                              color: ali==true ?Color(0xff8fd1ae): Color(0xff36845B),
+
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                              textColor: Colors.white,
+                              disabledColor: Color(0xff8fd1ae),
+                              // padding: EdgeInsets.all(10.0),
+                              onPressed: ali==true ? null: () async {
+                                     setState(() {
+                                       visbleornot=true;
+                                     });
+                              },
+
+
+                              child: Text('REVEAL CODE',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontFamily:'Poppins',
+                                    fontWeight: FontWeight.bold
+                                ),)))
+
+                        ],
+                      ),
+                      SizedBox(height: 20,),
+                      Visibility(
+                        child: Text(text,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontFamily:'Poppins',
+                              fontWeight: FontWeight.bold
+                          ),),
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: visbleornot,
+                      ),
+
 
                     ],
+
                   )
               ),
             ),

@@ -321,8 +321,8 @@ class _SubState extends State<Subcat_Fetch> {
                                 borderRadius: BorderRadius.circular(5.0),
                                 side: BorderSide(color: Color(0xff36845B),)),
                             onPressed: () {
-                           //   Single_Data_Sender objj=new Single_Data_Sender(obj.response[index].tagLine, obj.response[index].linkOrCouponValue,obj.response[index].description, obj.response[index].brandImageName);
-                             // Navigator.pushNamed(context, "viewsingle",arguments: objj);
+                              Single_Data_Sender objj=new Single_Data_Sender("", obj.response[index].brandAutoId,"", obj.response[index].brandImageName);
+                              Navigator.pushNamed(context, "viewsinglebrand",arguments: objj);
                             },
                             color: Color(0xff36845B),
                             textColor:Colors.white,
@@ -331,7 +331,6 @@ class _SubState extends State<Subcat_Fetch> {
                           ),
                         ),
                       )
-
                     ],
                   )
               ),

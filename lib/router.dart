@@ -1,4 +1,6 @@
 import 'package:collegedeals/Dashboard.dart';
+import 'package:collegedeals/Dashboard_Pages/Support.dart';
+import 'package:collegedeals/Dashboard_Pages/aboutus.dart';
 import 'package:collegedeals/Intro/Getting_Started.dart';
 import 'package:collegedeals/SignupSignin/Login.dart';
 import 'package:collegedeals/SignupSignin/Signupnext.dart';
@@ -57,5 +59,9 @@ switch (settings.name) {
 
       case 'login':
       return MaterialPageRoute(builder: (context) => Login());
+  case 'support':
+    return MaterialPageRoute(builder: (context) => Support());
+  case 'aboutus':
+    return MaterialPageRoute(builder: (context) => Aboutus());
   }
 }
