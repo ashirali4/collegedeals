@@ -199,7 +199,6 @@ class _SubState extends State<Subcat_Fetch> {
             width: MediaQuery.of(context).size.width ,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-
               boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Color(0XffEAECF3),
@@ -254,14 +253,27 @@ class _SubState extends State<Subcat_Fetch> {
                                   children: [
                                     Expanded(
                                       flex: 4,
-                                      child: Text(obj.response[index].brandName,
-                                        style: TextStyle(
-                                          color: Color(0xff1D262C),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins',
-                                        ),
-                                        textAlign: TextAlign.start,),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(obj.response[index].brandName,
+                                            style: TextStyle(
+                                              color: Color(0xff1D262C),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'Poppins',
+                                            ),
+                                            textAlign: TextAlign.start,),
+                                          Text(obj.response[index].brandTagLine,
+                                            style: TextStyle(
+                                              color: Color(0xff1D262C),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'Poppins',
+                                            ),
+                                            textAlign: TextAlign.start,),
+                                        ],
+                                      )
                                     ),
 
                                   ],
@@ -322,6 +334,7 @@ class _SubState extends State<Subcat_Fetch> {
                                 side: BorderSide(color: Color(0xff36845B),)),
                             onPressed: () {
                               Single_Data_Sender objj=new Single_Data_Sender("", obj.response[index].brandAutoId,"", obj.response[index].brandImageName);
+
                               Navigator.pushNamed(context, "viewsinglebrand",arguments: objj);
                             },
                             color: Color(0xff36845B),
@@ -331,6 +344,7 @@ class _SubState extends State<Subcat_Fetch> {
                           ),
                         ),
                       )
+
                     ],
                   )
               ),

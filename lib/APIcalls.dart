@@ -14,6 +14,7 @@ import 'APIModels/Homepage_FAashion_model.dart';
 import 'APIModels/Login_API_Model_Response.dart';
 import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 
+import 'APIModels/SearchAPI.dart';
 import 'APIModels/SubCatFetch.dart';
 import 'APIModels/UserInfoApiModel.dart';
 
@@ -100,6 +101,24 @@ class MyApi {
     else{
       final String responsestring=response.body;
       FetchHomeDeals list=fetchHomeDealsFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
+
+  Future<SearchBrands> searchbrands(String search) async {
+    String url= apiurl+'?submit_search_brand=1&search_query='+search;
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      SearchBrands list=searchBrandsFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      SearchBrands list=searchBrandsFromJson(responsestring);
       // print(list.length);
       return list;
     }
