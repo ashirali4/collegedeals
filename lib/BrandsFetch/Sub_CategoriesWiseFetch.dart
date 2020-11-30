@@ -225,19 +225,10 @@ class _SubState extends State<Subcat_Fetch> {
                         child:Container(
                           height: 75,
                           width: 75,
-                          child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    radius:28.0,
-                                    backgroundImage:
-                                    NetworkImage(obj.response[index].brandImageName),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                ],
-                              )
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(obj.response[index].brandImageName),
+                            )
                           ),
                         ),
                       ),
