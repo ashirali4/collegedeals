@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   flutter_widget_from_html_core: ^0.5.1+4
   webview_flutter: ^1.0.7
+  share: ^0.6.5+4
 
 
 

@@ -137,16 +137,19 @@ class _Favourite_ScreenState extends State<Cate_Wise_Blog> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 8,
+                        flex: 10,
                         child:Container(
-
-                          child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network('https://collegedeals.in/site_assets/blog_post_imgs/'+obj.response[index].featuredImage),
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              image: DecorationImage(
+                                image:  NetworkImage('https://collegedeals.in/site_assets/blog_post_imgs/'+obj.response[index].featuredImage),
+                                fit: BoxFit.cover,
                               )
+
                           ),
+
                         ),
                       ),
                       Expanded(

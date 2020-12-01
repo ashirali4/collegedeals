@@ -2,6 +2,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:collegedeals/APIModels/Single_Data_Sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 import '../main.dart';
 class SingleServiceView extends StatefulWidget {
@@ -57,11 +58,15 @@ class _SingleServiceViewState extends State<SingleServiceView> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Icon(Icons.share
+                                      InkWell(
+
+                                        child: Icon(Icons.share
+                                        ),
+                                        onTap: (){
+                                          Share.share('Checkout the Great Deal here :'+ widget.object.link, subject: 'CollegeDeals Deals');
+
+                                        },
                                       ),
-                                      SizedBox(width: 10,),
-                                      Icon(Icons.star_border
-                                      )
                                     ],
                                   )
                               ),

@@ -5,6 +5,7 @@ import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 import '../main.dart';
 class SingleBrandView extends StatefulWidget {
@@ -80,11 +81,16 @@ class _SingleServiceViewState extends State<SingleBrandView> {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.end,
                                                 children: [
-                                                  Icon(Icons.share
+                                                  InkWell(
+
+                                                    child: Icon(Icons.share
+                                                    ),
+                                                    onTap: (){
+                                                      Share.share('Checkout the Great Deal here :'+ snapshot.data.response[0].linkOrCouponValue, subject: 'CollegeDeals Deals');
+
+                                                    },
                                                   ),
-                                                  SizedBox(width: 10,),
-                                                  Icon(Icons.star_border
-                                                  )
+
                                                 ],
                                               )
                                           ),

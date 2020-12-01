@@ -55,7 +55,7 @@ class _homepageState extends State<home_page> {
           items: [
             BottomNavigationBarItem(
               //icon: Image.asset('assets/gab.png'),
-              icon: Icon(MyFlutterAppIcon.home,size: 20,),
+              icon: Icon(Icons.home_outlined,size: 25,),
               title: Text("Dashboard"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",
@@ -78,7 +78,7 @@ class _homepageState extends State<home_page> {
 
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
-              icon: Icon(Icons.format_list_numbered,size: 25,),
+              icon: Icon(Icons.featured_play_list_outlined,size: 23,),
               title:Text("Clients"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",
@@ -89,7 +89,7 @@ class _homepageState extends State<home_page> {
 
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
-              icon: Icon(MyFlutterAppIcon.settings,size: 20,),
+              icon: Icon(Icons.blur_circular_outlined,size: 25,),
               title: Text("Items"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",
@@ -99,7 +99,7 @@ class _homepageState extends State<home_page> {
             ),
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
-              icon: Icon(Icons.supervised_user_circle,size: 25,),
+              icon: Icon(Icons.account_circle_outlined,size: 25,),
               title: Text("Items"
                 ,style: TextStyle(
                     fontFamily: "OpenSans",

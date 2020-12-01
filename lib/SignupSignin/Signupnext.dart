@@ -306,7 +306,7 @@ class _signup1State extends State<Signupnext> {
                                       onPressed:() async {
                                         File _image;
 
-                                        final pickedFile = await picker.getImage(source: ImageSource.camera);
+                                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
                                         setState(() {
                                           if (pickedFile != null) {

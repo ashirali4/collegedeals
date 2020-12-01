@@ -43,22 +43,20 @@ class _Favourite_ScreenState extends State<Blog_View> {
               SizedBox(height: 10,),
 
 
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text('Blog',
-                    style: TextStyle(
-                      color: Color(0xff1D262C),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                    textAlign: TextAlign.start,),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('Blog Categories',
+                  style: TextStyle(
+                    color: Color(0xff1D262C),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                  ),
+                  textAlign: TextAlign.start,),
               ),
               Center(
                 child: Container(
-                  height: 155,
+                  height: 125,
                   width: MediaQuery.of(context).size.width,
                   child: FutureBuilder<BlogMainCategoires>(
              future: fetchcat, // a Future<String> or null
@@ -89,7 +87,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 10,top: 10),
                 child: Text('Recommended for you',
                   style: TextStyle(
                     color: Color(0xff1D262C),
@@ -100,9 +98,9 @@ class _Favourite_ScreenState extends State<Blog_View> {
                   textAlign: TextAlign.start,),
               ),
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.only(left: 05,right: 05),
                 child: Container(
-                  height: 600,
+                  height:600,
                     child: FutureBuilder<FetchBlogPost>(
                       future: fetchblogpost, // a Future<String> or null
                       builder: (BuildContext context, AsyncSnapshot<FetchBlogPost> snapshot) {
@@ -174,16 +172,19 @@ class _Favourite_ScreenState extends State<Blog_View> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 8,
+                        flex: 10,
                         child:Container(
-
-                          child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.network('https://collegedeals.in/site_assets/blog_post_imgs/'+obj.response[index].featuredImage),
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              image: DecorationImage(
+                                image:  NetworkImage('https://collegedeals.in/site_assets/blog_post_imgs/'+obj.response[index].featuredImage),
+                                fit: BoxFit.cover,
                               )
+
                           ),
+
                         ),
                       ),
                       Expanded(
@@ -253,22 +254,25 @@ class _Favourite_ScreenState extends State<Blog_View> {
   }
   Widget categorieslist(BlogMainCategoires data,int index){
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.only(left: 5,right: 5),
       child: Column(
         children: [
           Container(
             height: 100,
             width: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              image: DecorationImage(
+                image: NetworkImage('https://collegedeals.in/site_assets/blog_main_cat_imgs/'+data.response[index].image),
+                fit: BoxFit.cover,
+              )
+            ),
             child: MaterialButton(
               onPressed: () {
                 String id=data.response[index].autoId;
                 Navigator.pushNamed(context, "catewisefetch", arguments: id);
               },
               textColor: Colors.white,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network('https://collegedeals.in/site_assets/blog_main_cat_imgs/'+data.response[index].image),
-              ),
               padding: EdgeInsets.all(10),
               shape: CircleBorder(),
             ),
@@ -278,6 +282,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
             style: TextStyle(
               color: Color(0xff1D262C),
               fontSize: 12,
+              fontWeight: FontWeight.bold,
 
               fontFamily: 'Poppins',
             ),
