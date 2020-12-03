@@ -1,6 +1,7 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
@@ -67,11 +68,16 @@ class _SingleServiceViewState extends State<CodeView> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Icon(Icons.share
+                                        InkWell(
+
+                                          child: Icon(Icons.share
+                                          ),
+                                          onTap: (){
+                                            Share.share('Checkout the Great Deal here :'+ widget.code, subject: 'CollegeDeals Deals');
+
+                                          },
                                         ),
-                                        SizedBox(width: 10,),
-                                        Icon(Icons.star_border
-                                        )
+
                                       ],
                                     )
                                 ),

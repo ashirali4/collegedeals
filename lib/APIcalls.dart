@@ -106,6 +106,23 @@ class MyApi {
     }
   }
 
+  Future<FetchHomeDeals> fetchalldeals() async {
+    String url= apiurl+'?fetch_all_deals=1';
+    final response= await http.get(url);
+    if(response.statusCode==200){
+      final String responsestring=response.body;
+      FetchHomeDeals list=fetchHomeDealsFromJson(responsestring);
+      return list;
+    }
+    else{
+      final String responsestring=response.body;
+      FetchHomeDeals list=fetchHomeDealsFromJson(responsestring);
+      // print(list.length);
+      return list;
+    }
+  }
+
+
 
 
   Future<SearchBrands> searchbrands(String search) async {

@@ -88,8 +88,8 @@ class _Dash_MianState extends State<Dash_Mian> {
                     width: 335.0,
                     child: Carousel(
                       images: [
-                        AssetImage('assets/ads.png'),
-                        AssetImage('assets/ads2.png'),
+                        NetworkImage('https://collegedeals.in/custom_assets/img/slider/slide-3.jpg'),
+                        NetworkImage('https://collegedeals.in/custom_assets/img/slider/slide-4.jpg'),
                       ],
                       dotSize: 4.0,
                       dotSpacing: 15.0,
@@ -117,31 +117,38 @@ class _Dash_MianState extends State<Dash_Mian> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            color: Color(0xff8B57DF),
-                            textColor: Colors.white,
-                            child: Icon(
-                              MyFlutterAppIcon.deal,
-                              size: 35,
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, "alldeals",);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Column(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, "alldeals",);
+                              },
+                              color: Color(0xff8B57DF),
+                              textColor: Colors.white,
+                              child: Icon(
+                                MyFlutterAppIcon.deal,
+                                size: 35,
+                              ),
+                              padding: EdgeInsets.all(10),
+                              shape: CircleBorder(),
                             ),
-                            padding: EdgeInsets.all(10),
-                            shape: CircleBorder(),
-                          ),
-                          SizedBox(height: 04,),
-                          Text('All Deals',
-                            style: TextStyle(
-                              color: Color(0xff1D262C),
-                              fontSize: 12,
+                            SizedBox(height: 04,),
+                            Text('All Deals',
+                              style: TextStyle(
+                                color: Color(0xff1D262C),
+                                fontSize: 12,
 
-                              fontFamily: 'Poppins',
-                            ),
-                            textAlign: TextAlign.center,),
-                        ],
+                                fontFamily: 'Poppins',
+                              ),
+                              textAlign: TextAlign.center,),
+                          ],
+                        ),
                       ),
                     )
                   ),

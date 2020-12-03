@@ -57,8 +57,9 @@ class _SubState extends State<Subcat_Fetch> {
                           width: 335.0,
                           child: Carousel(
                             images: [
-                              AssetImage('assets/ads.png'),
-                              AssetImage('assets/ads2.png'),
+
+                              NetworkImage('https://collegedeals.in/custom_assets/img/slider/slide-3.jpg'),
+                              NetworkImage('https://collegedeals.in/custom_assets/img/slider/slide-4.jpg'),
                             ],
                             dotSize: 4.0,
                             dotSpacing: 15.0,

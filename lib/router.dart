@@ -17,6 +17,7 @@ import 'SignupSignin/forget_pass.dart';
 import 'SingleOfferView/SingleService.dart';
 import 'SingleOfferView/Viewblog.dart';
 import 'SingleOfferView/cat_wise_blog.dart';
+import 'SingleOfferView/home_deals.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
 var signuparg=settings.arguments;
@@ -62,6 +63,8 @@ switch (settings.name) {
 
       case 'login':
       return MaterialPageRoute(builder: (context) => Login());
+  case 'alldeals':
+    return MaterialPageRoute(builder: (context) => Home_deals());
   case 'support':
     return MaterialPageRoute(builder: (context) => Support());
   case 'aboutus':
