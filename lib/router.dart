@@ -1,9 +1,11 @@
+import 'package:collegedeals/APIModels/verifyemail.dart';
 import 'package:collegedeals/Dashboard.dart';
 import 'package:collegedeals/Dashboard_Pages/Support.dart';
 import 'package:collegedeals/Dashboard_Pages/aboutus.dart';
 import 'package:collegedeals/Intro/Getting_Started.dart';
 import 'package:collegedeals/SignupSignin/Login.dart';
 import 'package:collegedeals/SignupSignin/Signupnext.dart';
+import 'package:collegedeals/SignupSignin/Verify_Email.dart';
 import 'package:collegedeals/SignupSignin/resetpassword.dart';
 import 'package:collegedeals/SingleOfferView/CodeView.dart';
 import 'package:collegedeals/SingleOfferView/SingleBrandView.dart';
@@ -28,6 +30,8 @@ var blogg=settings.arguments;
 var mainautoid=settings.arguments;
 var singleviewbrand=settings.arguments;
 var searrr=settings.arguments;
+var ver=settings.arguments;
+
 
 switch (settings.name) {
 
@@ -36,6 +40,8 @@ switch (settings.name) {
       return MaterialPageRoute(builder: (context) => welcomescreen());
   case 'search':
     return MaterialPageRoute(builder: (context) => Search_Brands(searrr));
+  case 'verifyy':
+    return MaterialPageRoute(builder: (context) => Verifyemaisl(ver));
     case 'SignUp':
       return MaterialPageRoute(builder: (context) => signup1());
     case 'Signupnext':

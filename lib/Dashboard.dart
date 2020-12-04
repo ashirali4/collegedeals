@@ -21,7 +21,7 @@ class _homepageState extends State<home_page> {
     Dash_Mian(),
     //Favourite_Screen(),
     Blog_View(),
-    Setting_Dashboard(),
+    //Setting_Dashboard(),
     Profile_Screen(),
 
 
@@ -87,16 +87,16 @@ class _homepageState extends State<home_page> {
                 ),),
             ),
 
-            BottomNavigationBarItem(
-              // icon: Image.asset('assets/gab.png'),
-              icon: Icon(Icons.blur_circular_outlined,size: 25,),
-              title: Text("Items"
-                ,style: TextStyle(
-                    fontFamily: "OpenSans",
-                    fontSize: 12,
-                    color: Color(0xFFBBBBBB)
-                ),),
-            ),
+//            BottomNavigationBarItem(
+//              // icon: Image.asset('assets/gab.png'),
+//              icon: Icon(Icons.blur_circular_outlined,size: 25,),
+//              title: Text("Items"
+//                ,style: TextStyle(
+//                    fontFamily: "OpenSans",
+//                    fontSize: 12,
+//                    color: Color(0xFFBBBBBB)
+//                ),),
+//            ),
             BottomNavigationBarItem(
               // icon: Image.asset('assets/gab.png'),
               icon: Icon(Icons.account_circle_outlined,size: 25,),

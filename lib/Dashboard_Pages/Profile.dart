@@ -34,7 +34,7 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
               ),
 
 
-              list(),
+            //  listttt(),
 
             ],
           ),
@@ -42,7 +42,7 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
       ),
     );
   }
-  Widget list(){
+  Widget listttt(){
     return Column(
       children: [
         Padding(
@@ -81,13 +81,13 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
                         onTap: (){
                           Navigator.pushNamed(context, "aboutus");
                         },
-                        child: Listitemsettings("assets/about.png","About Us",SizedBox(width: 1,)),
+                        child: Listitemsettingsttt("assets/about.png","About Us",SizedBox(width: 1,)),
                       ),
                       InkWell(
                         onTap: (){
                           Navigator.pushNamed(context, "support");
                         },
-                        child:  Listitemsettings("assets/support.png","Support",SizedBox(width: 1,)),
+                        child:  Listitemsettingsttt("assets/support.png","Support",SizedBox(width: 1,)),
                       ),
 
 
@@ -100,7 +100,7 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
       ],
     );
   }
-  Widget Listitemsettings(String assetimage,String text,Widget name){
+  Widget Listitemsettingsttt(String assetimage,String text,Widget name){
     return Padding(
       padding: const EdgeInsets.only(top:10,bottom: 10),
       child: Row(
@@ -132,28 +132,5 @@ class _Setting_DashboardState extends State<Setting_Dashboard> {
       ),
     );
   }
-  Widget pass(){
-    return Container(
-      child: Icon(Icons.arrow_forward_ios, color: Colors.black.withOpacity(0.5),size: 15,),
-    );
-  }
-  Widget swithnotify(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-            width: 60,
-            child: Switch(
-              onChanged: (dd){
-                setState(() {
-                  value=dd;
-                });
-              },
-              value: value,
-              activeColor:  Color(0xff36845B),
-            )
-        ),
-      ],
-    );
-  }
+
 }

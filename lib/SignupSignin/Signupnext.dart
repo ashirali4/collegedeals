@@ -2,10 +2,14 @@ import 'dart:io';
 import 'dart:async';
 
 
+import 'package:collegedeals/APIModels/Signup_Response_API.dart';
+import 'package:collegedeals/APIcalls.dart';
 import 'package:collegedeals/SignupSignin/Signup.dart';
+import 'package:collegedeals/components/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:passwordfield/passwordfield.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Signupnext extends StatefulWidget {
   email_password info;
@@ -15,13 +19,17 @@ class Signupnext extends StatefulWidget {
 }
 bool _passwordVisible = false;
 class _signup1State extends State<Signupnext> {
+  String file="No Image Selected";
+  String selectedstate="Andra Pradesh";
   final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
   String email;
   String mobile;
   String insitute;
   String city;
   String state;
+  MyApi api=new MyApi();
   final picker = ImagePicker();
+  File _image;
 
   @override
   void initState() {
@@ -71,6 +79,7 @@ class _signup1State extends State<Signupnext> {
                            Form(
                              key: _formKey
                              ,child:Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
                                children: [
                                  new TextFormField(
                                    validator: (String value) {
@@ -231,45 +240,71 @@ class _signup1State extends State<Signupnext> {
                                    ),
 
                                  ),
-                                 new TextFormField(
-                                   validator: (String value) {
-                                     if(value.isEmpty){
-                                       return 'State is required';
-                                     }
-
-                                     return null;
-
-                                   },
-                                   onSaved: (String value){
-                                     state=value;
-                                   },
-                                   style: TextStyle(
-                                     fontFamily: "Poppins",
-                                     fontSize: 20,
-                                     fontWeight: FontWeight.bold,
+                                 SizedBox(height: 10,),
+                                 Text("State",style: TextStyle(
+                                   fontFamily: "Poppins",
+                                   fontSize: 15,
+                                   fontWeight: FontWeight.bold,
+                                   color: Color(0xff36845B),
+                                 ),),
+                                 Container(
+                                   width: MediaQuery.of(context).size.width,
+                                   child: new DropdownButton<String>(
+                                     isExpanded: true,
+                                     value: selectedstate,
+                                     items: <String>["Andra Pradesh",
+                                       "Arunachal Pradesh",
+                                       "Assam",
+                                       "Bihar",
+                                       "Chhattisgarh",
+                                       "Goa",
+                                       "Gujarat",
+                                       "Haryana",
+                                       "Himachal Pradesh",
+                                       "Jammu and Kashmir",
+                                       "Jharkhand",
+                                       "Karnataka",
+                                       "Kerala",
+                                       "Madya Pradesh",
+                                       "Maharashtra",
+                                       "Manipur",
+                                       "Meghalaya",
+                                       "Mizoram",
+                                       "Nagaland",
+                                       "Orissa",
+                                       "Punjab",
+                                       "Rajasthan",
+                                       "Sikkim",
+                                       "Tamil Nadu",
+                                       "Telagana",
+                                       "Tripura",
+                                       "Uttaranchal",
+                                       "Uttar Pradesh",
+                                       "West Bengal",
+                                       "Andaman and Nicobar Islands",
+                                       "Chandigarh",
+                                       "Dadar and Nagar Haveli",
+                                       "Daman and Diu",
+                                       "Delhi",
+                                       "Lakshadeep",
+                                       "Pondicherry",].map((String value) {
+                                       return new DropdownMenuItem<String>(
+                                         value: value,
+                                         child: new Text(value,style:TextStyle(
+                                           fontFamily: "Poppins",
+                                           fontSize: 15,
+                                           fontWeight: FontWeight.bold,
+                                           color: Colors.black
+                                         ),),
+                                       );
+                                     }).toList(),
+                                     onChanged: (value) {
+                                       setState(() {
+                                         selectedstate=value;
+                                       });
+                                     },
                                    ),
-                                   keyboardType: TextInputType.emailAddress,
-                                   decoration: new InputDecoration(
-                                     labelText: 'State',
-                                     labelStyle: TextStyle(
-                                       fontFamily: "Poppins",
-                                       fontSize: 15,
-                                       color: Color(0xff36845B),
-                                     ),
-                                     hintText: 'e.g: Punjab',
-                                     hintStyle: TextStyle(
-                                         fontFamily: "Poppins",
-                                         fontSize: 15
-                                     ),
-                                     enabledBorder: UnderlineInputBorder(
-                                       borderSide: BorderSide( color: Color(0xffbbbbbb),),
-                                     ),
-                                     focusedBorder: UnderlineInputBorder(
-                                       borderSide: BorderSide( color: Color(0xff36845B),),
-                                     ),
-                                   ),
-
-                                 ),
+                                 )
                                ],
                              )
                              ,
@@ -304,14 +339,20 @@ class _signup1State extends State<Signupnext> {
                                       disabledColor: Colors.grey,
                                       // padding: EdgeInsets.all(10.0),
                                       onPressed:() async {
-                                        File _image;
+
 
                                         final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
                                         setState(() {
                                           if (pickedFile != null) {
                                             _image = File(pickedFile.path);
+                                            String fileName = pickedFile.path.split('/').last;
+
+                                            setState(() {
+                                              file=fileName;
+                                            });
                                           } else {
+
                                             print('No image selected.');
                                           }
                                         });
@@ -326,7 +367,7 @@ class _signup1State extends State<Signupnext> {
                                   Expanded(flex: 7,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10),
-                                    child: Text('No File Choosen',
+                                    child: Text(file,
                                       style:  TextStyle(
                                         fontFamily: "Poppins",
                                         fontSize: 12,
@@ -351,16 +392,55 @@ class _signup1State extends State<Signupnext> {
                                   textColor: Colors.white,
                                   disabledColor: Colors.grey,
                                   // padding: EdgeInsets.all(10.0),
-                                  onPressed:(){
-                                    if(!_formKey.currentState.validate()) {
-                                      return;
+                                  onPressed:() async {
+                                    if(_formKey.currentState.validate()) {
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            child: Container(
+                                              height: 80,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15.0),
+                                                child: new Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    new CircularProgressIndicator(),
+                                                    SizedBox(width: 20,),
+                                                    new Container(
+                                                      child:  Text("Please Wait") ,
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                      _formKey.currentState.save();
+                                      SignupResponse user= await api.signup(email, widget.info.email, widget.info.password, mobile, insitute, city, selectedstate, _image);
+                                      if(user.status=="Success"){
+                                        Navigator.pop(context);
+                                        Navigator.pushNamed(context, "verifyy",arguments: widget.info.email);
+                                      }
+                                      else{
+                                        Navigator.pop(context);
+                                        Alert(
+                                          context: context,
+                                          type: AlertType.error,
+                                          title: "Failed",
+                                          desc: "Unable to Sign Up",
+                                        ).show();
+                                      }
+                                      print(user);
                                     }
-                                    _formKey.currentState.save();
+
                                     print(email);
                                     print(mobile);
                                     print(insitute);
                                     print(city);
-                                    print(state);
+                                    print(selectedstate);
                                   },
                                   child: Text('Complete SignUp',
                                     style: TextStyle(

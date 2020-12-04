@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:collegedeals/APIModels/Fetch_Blog_Post.dart';
 import 'package:collegedeals/APIModels/Forgot_pass_API.dart';
+import 'package:collegedeals/APIModels/Signup_Response_API.dart';
 import 'package:collegedeals/APIModels/SingleBrandDetailsApiModel.dart';
 import 'package:collegedeals/BrandsFetch/Sub_CategoriesWiseFetch.dart';
 import 'package:dio/dio.dart';
@@ -17,6 +19,7 @@ import 'package:collegedeals/APIModels/Fetch_Blog_Categoires.dart';
 import 'APIModels/SearchAPI.dart';
 import 'APIModels/SubCatFetch.dart';
 import 'APIModels/UserInfoApiModel.dart';
+import 'APIModels/verifyemail.dart';
 
 //Future<String> funct() async {
 //  final prefs = await SharedPreferences.getInstance();
@@ -64,6 +67,66 @@ class MyApi {
     }
     else{
       LoginApiModel model=loginApiModelFromJson(response.toString());
+      return model;
+    }
+  }
+
+
+  Future<Verifyemail> verifymail(String passcode,String email) async {
+    var dio = Dio();
+    Map<String,dynamic> map=new Map<String,dynamic>();
+    map={
+      "verify_email" : 1,
+      "email_address" : email,
+      "confirmation_code" : passcode
+    };
+    FormData formData = FormData.fromMap(map);
+    var response = await dio.post(apiurl, data: formData);
+    if(response.statusCode==200){
+      Verifyemail model=verifyemailFromJson(response.toString());
+      return model;
+    }
+    else{
+
+      Verifyemail model=verifyemailFromJson(response.toString());
+      return model;
+    }
+  }
+
+
+
+
+  Future<SignupResponse> signup(String fullname,String email,String password,String mobile,String ins,String town,String state,
+      File file) async {
+    var dio = Dio();
+    String fileName = file.path.split('/').last;
+
+    Map<String,dynamic> map=new Map<String,dynamic>();
+    map={
+      "join_submit" : 1,
+      "full_name" : fullname,
+      "email_address" : email,
+      "password" : password,
+      "mobile_number" : mobile,
+      "institution_full_name" : ins,
+      "town_city" : town,
+      "state" : state,
+      "institution_proof" : await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+      ),
+    };
+    FormData formData = FormData.fromMap(map);
+    var response = await dio.post(apiurl, data: formData);
+    if(response.statusCode==200){
+      SignupResponse model=signupResponseFromJson(response.toString());
+      print(response);
+      return model;
+    }
+    else{
+      print(response);
+
+      SignupResponse model=signupResponseFromJson(response.toString());
       return model;
     }
   }

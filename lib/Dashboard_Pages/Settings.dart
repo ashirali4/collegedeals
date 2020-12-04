@@ -67,16 +67,14 @@ String id="";
 
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Center(
-                  child: Text('Your Profile',
-                    style: TextStyle(
-                      color: Color(0xff1D262C),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                    textAlign: TextAlign.start,),
-                ),
+                child: Text('Your Profile',
+                  style: TextStyle(
+                    color: Color(0xff1D262C),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                  ),
+                  textAlign: TextAlign.start,),
               ),
 
 
@@ -95,14 +93,34 @@ String id="";
               // list(Icons.mail_outline,"Change Email",pass()),
               // list(Icons.security,"Change Password",pass()),
               list(Icons.help_outline," Help",pass()),
-             InkWell(
-               onTap: () async {
-                 final prefs = await SharedPreferences.getInstance();
-                 prefs.setString('check', 'no');
-                 Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
-               },
-               child:  list(Icons.exit_to_app," Logout",pass()),
-             )
+
+
+              InkWell(
+                onTap: () async {
+
+                  Navigator.pushNamed(context, "aboutus");
+                },
+                child:  list(Icons.info_outline_rounded," About Us",pass()),
+              ),
+
+              InkWell(
+                onTap: () async {
+
+                  Navigator.pushNamed(context, "support");
+                },
+                child:  list(Icons.phone_android_outlined," Support",pass()),
+              ),
+
+              InkWell(
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setString('check', 'no');
+                  Navigator.pushNamedAndRemoveUntil(context, "login", (route) => false);
+                },
+                child:  list(Icons.exit_to_app," Logout",pass()),
+              ),
+
+
 
 
             ],
@@ -111,7 +129,7 @@ String id="";
       ),
     );
   }
-  Widget list(IconData assetimage,String text,Widget name){
+ Widget list(IconData assetimage,String text,Widget name){
     return Column(
       children: [
         Padding(
