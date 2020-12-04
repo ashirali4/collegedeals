@@ -30,17 +30,8 @@ class _Favourite_ScreenState extends State<Blog_View> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40,),
-              Center(
-                child: Container(
+              SizedBox(height: 30,),
 
-                  width: 170,
-                  height: 50,
-                  child: Image.asset("assets/collegedealslogo.png"
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
 
 
               Padding(
@@ -68,18 +59,20 @@ class _Favourite_ScreenState extends State<Blog_View> {
                           if (snapshot.hasError)
                             return new Text('Error: ${snapshot.error}');
                           else
-                            return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.response.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return InkWell(
-                                    onTap: (){
-                                      String id=snapshot.data.response[index].autoId;
-                                      Navigator.pushNamed(context, "catewisefetch", arguments: id);
-                                    },
-                                    child: categorieslist(snapshot.data,index));
-                              },
+                            return Center(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 3,
+                                itemBuilder: (BuildContext ctxt, int index) {
+                                  return InkWell(
+                                      onTap: (){
+                                        String id=snapshot.data.response[index].autoId;
+                                        Navigator.pushNamed(context, "catewisefetch", arguments: id);
+                                      },
+                                      child: categorieslist(snapshot.data,index));
+                                },
 
+                              ),
                             );
                       }
                     },

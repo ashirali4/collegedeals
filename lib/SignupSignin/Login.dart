@@ -243,7 +243,7 @@ class _signup1State extends State<Login> {
                                   onPressed:() async {
                                     name="";
                                     logindetails=await loginapi.signin(email.text, password.text);
-                                    _onLoading(context, logindetails.status,logindetails.other);
+                                    _onLoading(context, logindetails,logindetails.other);
 
 
 
@@ -275,7 +275,7 @@ class _signup1State extends State<Login> {
     );
   }
 
-  void _onLoading(BuildContext context,String response,List<Other> other) {
+  void _onLoading(BuildContext context,LoginApiModel response,List<Other> other) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -300,7 +300,7 @@ class _signup1State extends State<Login> {
         );
       },
     );
-    if(response=="Success"){
+    if(response.status=="Success"){
       addStringToSF(other);
       new Future.delayed(new Duration(seconds: 3), () {
         Navigator.pop(context);
@@ -332,13 +332,55 @@ class _signup1State extends State<Login> {
     else{
       Navigator.pop(context); //pop dialog
 
-
-      Alert(
+      showGeneralDialog(
+        barrierLabel:"Error",
+        barrierDismissible: true,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 500),
         context: context,
-        type: AlertType.error,
-        title: "Error",
-        desc: "Your email/password is incorrect!",
-      ).show();
+        pageBuilder: (_, __, ___) {
+          return Align(
+            alignment: Alignment.center,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                height: 220,
+                width: 220,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline,size: 80,  color: Color(0xff36845B),),
+                    SizedBox(height: 30,),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: new Text(response.message,
+                        style: TextStyle(
+                          color: Color(0xff71828A),
+                          fontSize: 12,
+                          fontFamily: 'Poppins',
+                        ),
+                        textAlign: TextAlign.center,),
+                    ),
+
+                  ],
+                ),
+                margin: EdgeInsets.only(bottom: 20, left: 12, right: 12,top: 40),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          );
+        },
+        transitionBuilder: (_, anim, __, child) {
+          return SlideTransition(
+            position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+            child: child,
+          );
+        },
+      );
+
     }
   }
   addStringToSF(List<Other> other) async {
@@ -349,4 +391,7 @@ class _signup1State extends State<Login> {
     prefs.setString('check', 'yes');
 
   }
+
+
+
 }

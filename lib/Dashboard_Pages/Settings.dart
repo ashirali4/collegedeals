@@ -51,18 +51,10 @@ String id="";
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40,),
+              SizedBox(height: 30,),
 
-              Center(
-                child: Container(
 
-                  width: 170,
-                  height: 50,
-                  child: Image.asset("assets/collegedealslogo.png"
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
+
 
 
               Padding(
@@ -92,7 +84,7 @@ String id="";
               ),
               // list(Icons.mail_outline,"Change Email",pass()),
               // list(Icons.security,"Change Password",pass()),
-              list(Icons.help_outline," Help",pass()),
+
 
 
               InkWell(
