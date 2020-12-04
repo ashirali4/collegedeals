@@ -48,34 +48,57 @@ class _Favourite_ScreenState extends State<Blog_View> {
               Center(
                 child: Container(
                   height: 125,
-                  width: MediaQuery.of(context).size.width,
-                  child: FutureBuilder<BlogMainCategoires>(
-             future: fetchcat, // a Future<String> or null
-                    builder: (BuildContext context, AsyncSnapshot<BlogMainCategoires> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.none: return new Text('Press button to start');
-                        case ConnectionState.waiting: return Loader();
-                        default:
-                          if (snapshot.hasError)
-                            return new Text('Error: ${snapshot.error}');
-                          else
-                            return Center(
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 3,
-                                itemBuilder: (BuildContext ctxt, int index) {
-                                  return InkWell(
-                                      onTap: (){
-                                        String id=snapshot.data.response[index].autoId;
-                                        Navigator.pushNamed(context, "catewisefetch", arguments: id);
-                                      },
-                                      child: categorieslist(snapshot.data,index));
-                                },
 
-                              ),
-                            );
-                      }
-                    },
+                  width: MediaQuery.of(context).size.width,
+             //      child: FutureBuilder<BlogMainCategoires>(
+             // future: fetchcat, // a Future<String> or null
+             //        builder: (BuildContext context, AsyncSnapshot<BlogMainCategoires> snapshot) {
+             //          switch (snapshot.connectionState) {
+             //            case ConnectionState.none: return new Text('Press button to start');
+             //            case ConnectionState.waiting: return Loader();
+             //            default:
+             //              if (snapshot.hasError)
+             //                return new Text('Error: ${snapshot.error}');
+             //              else
+             //                return Center(
+             //                  child: ListView.builder(
+             //                    scrollDirection: Axis.horizontal,
+             //                    itemCount: 3,
+             //                    itemBuilder: (BuildContext ctxt, int index) {
+             //                      return InkWell(
+             //                          onTap: (){
+             //                            String id=snapshot.data.response[index].autoId;
+             //                            Navigator.pushNamed(context, "catewisefetch", arguments: id);
+             //                          },
+             //                          child: categorieslist(snapshot.data,index));
+             //                    },
+             //
+             //                  ),
+             //                );
+             //          }
+             //        },
+             //      ),
+                  child: Row(
+                    children: [
+                      Expanded(child: InkWell(
+                          onTap: (){
+                            String id="1";
+                            Navigator.pushNamed(context, "catewisefetch", arguments: id);
+                          },
+                          child: categorieslist("career.jpg","Career","1")),flex: 1,),
+                      Expanded(child: InkWell(
+                          onTap: (){
+                            String id="2";
+                            Navigator.pushNamed(context, "catewisefetch", arguments: id);
+                          },
+                          child: categorieslist("travel.jpg","Travel","1")),flex: 1,),
+                      Expanded(child: InkWell(
+                          onTap: (){
+                            String id="3";
+                            Navigator.pushNamed(context, "catewisefetch", arguments: id);
+                          },
+                          child: categorieslist("shopping.jpg","Shopping","1")),flex: 1,)
+                    ],
                   ),
                 ),
               ),
@@ -245,7 +268,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
       ],
     );
   }
-  Widget categorieslist(BlogMainCategoires data,int index){
+  Widget categorieslist(String image,String name,String id){
     return Padding(
       padding: const EdgeInsets.only(left: 5,right: 5),
       child: Column(
@@ -256,14 +279,14 @@ class _Favourite_ScreenState extends State<Blog_View> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               image: DecorationImage(
-                image: NetworkImage('https://collegedeals.in/site_assets/blog_main_cat_imgs/'+data.response[index].image),
+                image: NetworkImage('https://collegedeals.in/site_assets/blog_main_cat_imgs/'+image),
                 fit: BoxFit.cover,
               )
             ),
             child: MaterialButton(
               onPressed: () {
-                String id=data.response[index].autoId;
-                Navigator.pushNamed(context, "catewisefetch", arguments: id);
+                String i=id;
+                Navigator.pushNamed(context, "catewisefetch", arguments: i);
               },
               textColor: Colors.white,
               padding: EdgeInsets.all(10),
@@ -271,7 +294,7 @@ class _Favourite_ScreenState extends State<Blog_View> {
             ),
           ),
           SizedBox(height: 04,),
-          Text(data.response[index].name,
+          Text(name,
             style: TextStyle(
               color: Color(0xff1D262C),
               fontSize: 12,
