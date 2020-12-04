@@ -426,12 +426,54 @@ class _signup1State extends State<Signupnext> {
                                       }
                                       else{
                                         Navigator.pop(context);
-                                        Alert(
+                                        showGeneralDialog(
+                                          barrierLabel:"Error",
+                                          barrierDismissible: true,
+                                          barrierColor: Colors.black.withOpacity(0.5),
+                                          transitionDuration: Duration(milliseconds: 500),
                                           context: context,
-                                          type: AlertType.error,
-                                          title: "Failed",
-                                          desc: "Unable to Sign Up",
-                                        ).show();
+                                          pageBuilder: (_, __, ___) {
+                                            return Align(
+                                              alignment: Alignment.center,
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: Container(
+                                                  height: 220,
+                                                  width: 220,
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon(Icons.error_outline,size: 80,  color: Color(0xff36845B),),
+                                                      SizedBox(height: 30,),
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(8.0),
+                                                        child: new Text("Failed to Sign Up",
+                                                          style: TextStyle(
+                                                            color: Color(0xff71828A),
+                                                            fontSize: 12,
+                                                            fontFamily: 'Poppins',
+                                                          ),
+                                                          textAlign: TextAlign.center,),
+                                                      ),
+
+                                                    ],
+                                                  ),
+                                                  margin: EdgeInsets.only(bottom: 20, left: 12, right: 12,top: 40),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          transitionBuilder: (_, anim, __, child) {
+                                            return SlideTransition(
+                                              position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+                                              child: child,
+                                            );
+                                          },
+                                        );
                                       }
                                       print(user);
                                     }
