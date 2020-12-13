@@ -253,7 +253,7 @@ class MyApi {
   // API FOR THE blogposts
 
   Future<FetchBlogPost> topblogposts() async {
-    String url= apiurl+'?fetch_popular_blog_posts=1/';
+    String url= apiurl+'?fetch_blog_posts_java=1&main_cat=1';
     final response= await http.get(url);
     if(response.statusCode==200){
       final String responsestring=response.body;
@@ -273,7 +273,7 @@ class MyApi {
 
 
   Future<FetchBlogPost> catewisefetch(String id) async {
-    String url= apiurl+'?fetch_blog_posts=1&main_cat='+id+'/';
+    String url= apiurl+'?fetch_blog_posts_java=1&main_cat='+id+'/';
     final response= await http.get(url);
     if(response.statusCode==200){
       final String responsestring=response.body;

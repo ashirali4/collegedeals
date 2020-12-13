@@ -20,11 +20,12 @@ class Signupnext extends StatefulWidget {
 bool _passwordVisible = false;
 class _signup1State extends State<Signupnext> {
   String file="No Image Selected";
-  String selectedstate="Andra Pradesh";
+  String selectedstate="Andhra Pradesh";
   final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
   String email;
   String mobile;
   String insitute;
+  bool ispickedfi=false;
   String city;
   String state;
   MyApi api=new MyApi();
@@ -226,7 +227,7 @@ class _signup1State extends State<Signupnext> {
                                        fontSize: 15,
                                        color: Color(0xff36845B),
                                      ),
-                                     hintText: 'e.g : Dehli',
+                                     hintText: 'e.g : Delhi',
                                      hintStyle: TextStyle(
                                          fontFamily: "Poppins",
                                          fontSize: 15
@@ -252,7 +253,7 @@ class _signup1State extends State<Signupnext> {
                                    child: new DropdownButton<String>(
                                      isExpanded: true,
                                      value: selectedstate,
-                                     items: <String>["Andra Pradesh",
+                                     items: <String>["Andhra Pradesh",
                                        "Arunachal Pradesh",
                                        "Assam",
                                        "Bihar",
@@ -347,7 +348,7 @@ class _signup1State extends State<Signupnext> {
                                           if (pickedFile != null) {
                                             _image = File(pickedFile.path);
                                             String fileName = pickedFile.path.split('/').last;
-
+                                            ispickedfi=true;
                                             setState(() {
                                               file=fileName;
                                             });
@@ -394,95 +395,150 @@ class _signup1State extends State<Signupnext> {
                                   // padding: EdgeInsets.all(10.0),
                                   onPressed:() async {
                                     if(_formKey.currentState.validate()) {
-                                      showDialog(
+
+
+                                      if(ispickedfi==true){
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              child: Container(
+                                                height: 80,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(15.0),
+                                                  child: new Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      new CircularProgressIndicator(),
+                                                      SizedBox(width: 20,),
+                                                      new Container(
+                                                        child:  Text("Please Wait") ,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        _formKey.currentState.save();
+                                        SignupResponse user= await api.signup(email, widget.info.email, widget.info.password, mobile, insitute, city, selectedstate, _image);
+                                        if(user.status=="Success"){
+                                          Navigator.pop(context);
+                                          Navigator.pushNamed(context, "verifyy",arguments: widget.info.email);
+                                        }
+                                        else{
+                                          Navigator.pop(context);
+                                          showGeneralDialog(
+                                            barrierLabel:"Error",
+                                            barrierDismissible: true,
+                                            barrierColor: Colors.black.withOpacity(0.5),
+                                            transitionDuration: Duration(milliseconds: 500),
+                                            context: context,
+                                            pageBuilder: (_, __, ___) {
+                                              return Align(
+                                                alignment: Alignment.center,
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: Container(
+                                                    height: 220,
+                                                    width: 220,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(Icons.error_outline,size: 80,  color: Color(0xff36845B),),
+                                                        SizedBox(height: 30,),
+                                                        Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: new Text("Failed to Sign Up",
+                                                            style: TextStyle(
+                                                              color: Color(0xff71828A),
+                                                              fontSize: 12,
+                                                              fontFamily: 'Poppins',
+                                                            ),
+                                                            textAlign: TextAlign.center,),
+                                                        ),
+
+                                                      ],
+                                                    ),
+                                                    margin: EdgeInsets.only(bottom: 20, left: 12, right: 12,top: 40),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            transitionBuilder: (_, anim, __, child) {
+                                              return SlideTransition(
+                                                position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+                                                child: child,
+                                              );
+                                            },
+                                          );
+                                        }
+                                        print(user);
+                                      }
+
+                                      print(email);
+                                      print(mobile);
+                                      print(insitute);
+                                      print(city);
+                                      print(selectedstate);
+                                      }
+                                      else{
+                                      showGeneralDialog(
+                                        barrierLabel:"No File",
+                                        barrierDismissible: true,
+                                        barrierColor: Colors.black.withOpacity(0.5),
+                                        transitionDuration: Duration(milliseconds: 500),
                                         context: context,
-                                        barrierDismissible: false,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            child: Container(
-                                              height: 80,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(15.0),
-                                                child: new Row(
-                                                  mainAxisSize: MainAxisSize.min,
+                                        pageBuilder: (_, __, ___) {
+                                          return Align(
+                                            alignment: Alignment.center,
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: Container(
+                                                height: 220,
+                                                width: 220,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    new CircularProgressIndicator(),
-                                                    SizedBox(width: 20,),
-                                                    new Container(
-                                                      child:  Text("Please Wait") ,
-                                                    )
+                                                    Icon(Icons.error_outline,size: 80,  color: Color(0xff36845B),),
+                                                    SizedBox(height: 30,),
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: new Text("Please choose a File",
+                                                        style: TextStyle(
+                                                          color: Color(0xff71828A),
+                                                          fontSize: 12,
+                                                          fontFamily: 'Poppins',
+                                                        ),
+                                                        textAlign: TextAlign.center,),
+                                                    ),
+
                                                   ],
+                                                ),
+                                                margin: EdgeInsets.only(bottom: 20, left: 12, right: 12,top: 40),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
                                               ),
                                             ),
                                           );
                                         },
+                                        transitionBuilder: (_, anim, __, child) {
+                                          return SlideTransition(
+                                            position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+                                            child: child,
+                                          );
+                                        },
                                       );
-                                      _formKey.currentState.save();
-                                      SignupResponse user= await api.signup(email, widget.info.email, widget.info.password, mobile, insitute, city, selectedstate, _image);
-                                      if(user.status=="Success"){
-                                        Navigator.pop(context);
-                                        Navigator.pushNamed(context, "verifyy",arguments: widget.info.email);
                                       }
-                                      else{
-                                        Navigator.pop(context);
-                                        showGeneralDialog(
-                                          barrierLabel:"Error",
-                                          barrierDismissible: true,
-                                          barrierColor: Colors.black.withOpacity(0.5),
-                                          transitionDuration: Duration(milliseconds: 500),
-                                          context: context,
-                                          pageBuilder: (_, __, ___) {
-                                            return Align(
-                                              alignment: Alignment.center,
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                child: Container(
-                                                  height: 220,
-                                                  width: 220,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Icon(Icons.error_outline,size: 80,  color: Color(0xff36845B),),
-                                                      SizedBox(height: 30,),
-                                                      Padding(
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        child: new Text("Failed to Sign Up",
-                                                          style: TextStyle(
-                                                            color: Color(0xff71828A),
-                                                            fontSize: 12,
-                                                            fontFamily: 'Poppins',
-                                                          ),
-                                                          textAlign: TextAlign.center,),
-                                                      ),
 
-                                                    ],
-                                                  ),
-                                                  margin: EdgeInsets.only(bottom: 20, left: 12, right: 12,top: 40),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius.circular(10),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          transitionBuilder: (_, anim, __, child) {
-                                            return SlideTransition(
-                                              position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
-                                              child: child,
-                                            );
-                                          },
-                                        );
-                                      }
-                                      print(user);
-                                    }
-
-                                    print(email);
-                                    print(mobile);
-                                    print(insitute);
-                                    print(city);
-                                    print(selectedstate);
                                   },
                                   child: Text('Complete SignUp',
                                     style: TextStyle(
