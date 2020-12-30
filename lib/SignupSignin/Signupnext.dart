@@ -110,7 +110,7 @@ class _signup1State extends State<Signupnext> {
                                        fontSize: 15,
                                        color: Color(0xff36845B),
                                      ),
-                                     hintText: 'abc@gmail.com',
+                                     hintText: 'Your Name',
                                      hintStyle: TextStyle(
                                          fontFamily: "Poppins",
                                          fontSize: 15
